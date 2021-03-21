@@ -1,2 +1,1 @@
-Hello this is just a file to save commit into git hub
-all the best ishan!!!
+Hello this is Ishan, and i hope my project goes well
