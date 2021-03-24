@@ -1,0 +1,15 @@
+.col-left{
+    width: 80%;
+  
+    float: left;
+}
+.col-right{
+    margin-left:2%;
+    width: 18%;
+    float: left ;
+}
+.card{
+    margin: auto;
+    margin-right: 1%;
+    margin-top: 1%;
+}
