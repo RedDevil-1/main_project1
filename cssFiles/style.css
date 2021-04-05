@@ -1,0 +1,29 @@
+body{
+    white-space: nowrap;
+    background: url("bg2.jpeg")  bottom;
+    background-size: cover;
+    background-position: center;
+}
+p{
+    color: white;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-shadow: 2px 2px 5px grey;
+}
+hr{
+    border-top: 1px solid whitesmoke;
+}
+a{
+    font-size: 22px;
+ }
+
+ #login{
+     border: none;
+ }
+#login:hover{
+    color: whitesmoke;
+    background-color: black;
+    border-color: white;
+}
+.jumbotron .jumbotron-fluid{
+    margin-top: 10%;
+}
