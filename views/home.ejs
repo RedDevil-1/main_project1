@@ -1,51 +1,69 @@
 <%- include ('../partials/header')%>
 
 
-<link rel="stylesheet" type="text/css" href="general.css">
-<style>
-  * {box-sizing: border-box}
-  .mySlides1, .mySlides2 {display: none}
-  img{
-    vertical-align: centre;
-  }
+  <link rel="stylesheet" type="text/css" href="general.css">
+  <style>
+    * {
+      box-sizing: border-box
+    }
 
-  
-  /* Slideshow container */
-  .slideshow-container {
-    max-width: 1000px;
-    position: relative;
-    margin: auto;
-  }
-  
-  /* Next & previous buttons */
-  .prev, .next {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    width: auto;
-    padding: 16px;
-    margin-top: -22px;
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
-    transition: 0.6s ease;
-    border-radius: 0 3px 3px 0;
-    user-select: none;
-  }
-  
-  /* Position the "next button" to the right */
-  .next {
-    right: 10;
-    border-radius: 3px 0 0 3px;
-  }
-  
-  /* On hover, add a grey background color */
-  .prev:hover, .next:hover {
-    background-color: #f1f1f1;
-    color: black;
-  }
+    .mySlides1,
+    .mySlides2 {
+      display: none padding: 0px;
+    }
 
- </style>
+    img {
+      vertical-align: centre;
+    }
+
+
+    /* Slideshow container */
+    .slideshow-container {
+      max-width: 1000px;
+      position: relative;
+      margin: auto;
+    }
+
+    /* Next & previous buttons */
+    .prev,
+    .next {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      width: auto;
+      padding: 16px;
+      margin-top: -22px;
+      color: white;
+      font-weight: bold;
+      font-size: 18px;
+      transition: 0.6s ease;
+      border-radius: 0 3px 3px 0;
+      user-select: none;
+    }
+
+    /* Position the "next button" to the right */
+    .next {
+      right: 10;
+      border-radius: 3px 0 0 3px;
+    }
+
+    /* On hover, add a grey background color */
+    .prev:hover,
+    .next:hover {
+      background-color: #f1f1f1;
+      color: black;
+    }
+
+    #SSC {
+      /* border: solid red 2px; */
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+    #text {
+      border: solid blue 2px;
+    }
+  </style>
 
 
 
@@ -66,114 +84,115 @@
       <a class="btn btn-info " href="gadgets">GADGETS</a>
     </div>
     <div class="row">
-    <% news.forEach(function(newsAll){%>
-    <div class="slideshow-container">
-      <div>
-
-        <div class="mySlides1">
-          <img src="<%=newsAll.image%>" style="width: 600px; height: 400px;">
-          <a class="prev" onclick="plusSlides(-1, 0)">&#10094;</a>
-          <a class="next" onclick="plusSlides(1, 0)">&#10095;</a>
-        </div>
-
-
-      </div>
-      </div>
-        
-    <% })%>
-   
-    
-    
-    
-    
-    <div class="slideshow-container">
-      <div class="mySlides2">
-        <div class="card bg-dark text-light">
-          <img class="card-img-top" src=".../100px180/" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+      <div class="slideshow-container">
+        <div id="SSC">
+          
+          <% news.forEach(function(newsAll){%>
+            <div class="mySlides1">
+              <img src="<%=newsAll.image%>" style="width: 600px; height: 400px;">
+              <!-- <img src="" style="width: 600px; height: 400px;"> -->
+              <a class="prev" onclick="plusSlides(-1, 0)">&#10094;</a>
+              <a class="next" onclick="plusSlides(1, 0)">&#10095;</a>
+            </div>
+            <% })%>
+            <div id="text">
+              
+            </div>
+            
           </div>
+          
         </div>
-      </div>
-      <div class="mySlides2">
-        <div class="card text-light bg-dark">
-          <img class="card-img-top" src=".../100px180/" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the caaslkdhaosid hadhuwasuofjpl hazof hafhalfh aufcsadasldasg ausgdshadaddd rd title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+
+
+
+
+
+
+
+
+
+        <div class="slideshow-container">
+          <div class="mySlides2">
+            <div class="card bg-dark text-light">
+              <img class="card-img-top" src=".../100px180/" alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                  card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
           </div>
+          <div class="mySlides2">
+            <div class="card text-light bg-dark">
+              <img class="card-img-top" src=".../100px180/" alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the caaslkdhaosid hadhuwasuofjpl hazof
+                  hafhalfh aufcsadasldasg ausgdshadaddd rd title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+          </div>
+
+          <a class="prev" onclick="plusSlides(-1, 1)">&#10094;</a>
+          <a class="next" onclick="plusSlides(1, 1)">&#10095;</a>
         </div>
-      </div>
-    
-      <a class="prev" onclick="plusSlides(-1, 1)">&#10094;</a>
-      <a class="next" onclick="plusSlides(1, 1)">&#10095;</a>
-    </div>
     </div>
     <div class="col-right">
       <div class="container">
         <form class="searchbar">
-          <input
-            type="search"
-            placeholder="Search here"
-            name="search"
-            class="searchbar-input"
-            onkeyup="buttonUp();"
-            required
-          />
+          <input type="search" placeholder="Search here" name="search" class="searchbar-input" onkeyup="buttonUp();"
+            required />
           <input type="submit" class="searchbar-submit" value="GO" />
-          <span class="searchbar-icon"
-            ><i class="fa fa-search" aria-hidden="true"></i
-          ></span>
+          <span class="searchbar-icon"><i class="fa fa-search" aria-hidden="true"></i></span>
         </form>
-      </div> 
+      </div>
     </div>
   </div>
-</div>
+  </div>
 
 
 
 
   <script>
-    function colorSchema(){
-    
-      var property=document.getElementById('jumboMargin')
-      if(property.className!=='toggled'){
-        property.style.marginTop="25%";
-        property.style.marginLeft="10%";
-        property.style.marginRight="10%";
-        property.style.backgroundColor="white";
-        property.className='toggled';
+    function colorSchema() {
+
+      var property = document.getElementById('jumboMargin')
+      if (property.className !== 'toggled') {
+        property.style.marginTop = "25%";
+        property.style.marginLeft = "10%";
+        property.style.marginRight = "10%";
+        property.style.backgroundColor = "white";
+        property.className = 'toggled';
       }
-      else{
-        property.style.marginTop="5%";
-        property.style.backgroundColor="white";
-        property.style.marginLeft="10%";
-        property.style.marginRight="10%";
-        property.className='';
+      else {
+        property.style.marginTop = "5%";
+        property.style.backgroundColor = "white";
+        property.style.marginLeft = "10%";
+        property.style.marginRight = "10%";
+        property.className = '';
       }
     }
-    var slideIndex = [1,1];
-var slideId = ["mySlides1", "mySlides2"]
-showSlides(1, 0);
-showSlides(1, 1);
+    var slideIndex = [1, 1];
+    var slideId = ["mySlides1", "mySlides2"]
+    showSlides(1, 0);
+    showSlides(1, 1);
 
-function plusSlides(n, no) {
-  showSlides(slideIndex[no] += n, no);
-}
+    function plusSlides(n, no) {
+      showSlides(slideIndex[no] += n, no);
+    }
 
-function showSlides(n, no) {
-  var i;
-  var x = document.getElementsByClassName(slideId[no]);
-  if (n > x.length) {slideIndex[no] = 1}    
-  if (n < 1) {slideIndex[no] = x.length}
-  for (i = 0; i < x.length; i++) {
-     x[i].style.display = "none";  
-  }
-  x[slideIndex[no]-1].style.display = "block";  
-}
+    function showSlides(n, no) {
+      var i;
+      var x = document.getElementsByClassName(slideId[no]);
+      if (n > x.length) { slideIndex[no] = 1 }
+      if (n < 1) { slideIndex[no] = x.length }
+      for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+      }
+      x[slideIndex[no] - 1].style.display = "block";
+    }
   </script>
 
-<%- include ('../partials/footer')%>
+  <%- include ('../partials/footer')%>
