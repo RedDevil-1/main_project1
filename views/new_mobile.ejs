@@ -1,0 +1,60 @@
+<%- include ('../partials/header')%>
+<h1 class="mt-5 d-flex justify-content-around">Add a new NEWS</h1>
+<div class="container">
+  <div class="row">
+    <div style="width: 50%; margin: 3% auto">
+      <form
+        class="jsutify-content-around"
+        method="post"
+        action="/gadgets/processors"
+      >
+        <div class="form-group">
+          <input class="form-control" text" name="ModelName"
+          placeholder="ModelName" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="Brief" placeholder="Brief" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="Description"
+          placeholder="Description" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="Image" placeholder="Image" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="LaunchedDate"
+          placeholder="LaunchedDate" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="Price" placeholder="Price" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="CPU" placeholder="CPU" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="GPU" placeholder="GPU" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="RAM" placeholder="RAM" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="Display" placeholder="Display"
+          />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="Memory" placeholder="Memory"
+          />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="Camera" placeholder="Camera"
+          />
+        </div>
+        <button class="btn btn-block btn-lg btn-info">Submit</button>
+        <div class="form-group"></div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include ('../partials/footer')%>
