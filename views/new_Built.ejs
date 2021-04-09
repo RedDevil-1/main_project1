@@ -1,9 +1,4 @@
 <%- include ('../partials/header')%>
-<link rel="stylesheet" type="text/css" href="news.css" />
-<link
-  href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-  rel="stylesheet"
-/>
 <h1 class="mt-5 d-flex justify-content-around">Add a new NEWS</h1>
 <div class="container">
   <div class="row">
@@ -11,7 +6,7 @@
       <form
         class="jsutify-content-around"
         method="post"
-        action="/gadgets/laptops"
+        action="/gadgets/preBuilt"
       >
         <div class="form-group">
           <input class="form-control" text" name="ModelName"
@@ -28,33 +23,40 @@
           <input class="form-control" text" name="Image" placeholder="Image" />
         </div>
         <div class="form-group">
-          <input class="form-control" text" name="LaunchedDate"
-          placeholder="LaunchedDate" />
-        </div>
-        <div class="form-group">
           <input class="form-control" text" name="Price" placeholder="Price" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" text" name="CPU" placeholder="CPU" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" text" name="GPU" placeholder="GPU" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" text" name="RAM" placeholder="RAM" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" text" name="Display" placeholder="Display"
-          />
         </div>
         <div class="form-group">
           <input class="form-control" text" name="Memory" placeholder="Memory"
           />
         </div>
         <div class="form-group">
-          <input class="form-control" text" name="Camera" placeholder="Camera"
+          <input class="form-control" text" name="MotherBoard"
+          placeholder="MotherBoard"/>
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="Connectivity"
+          placeholder="Connectivity" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="Processor"
+          placeholder="Processor" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="PSU" placeholder="PSU" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="Cabinet" placeholder="Cabinet"
           />
         </div>
+        <div class="form-group">
+          <input class="form-control" text" name="HardDisk"
+          placeholder="HardDisk" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="GraphicCard"
+          placeholder="GraphicCard" />
+        </div>
+
         <button class="btn btn-block btn-lg btn-info">Submit</button>
         <div class="form-group"></div>
       </form>

@@ -12,6 +12,7 @@ var express = require("express"),
   Laptops = require("./JavaScriptFiles/laptop.js"),
   Headphones = require("./JavaScriptFiles/headphone.js"),
   Earphones = require("./JavaScriptFiles/earphone.js"),
+  PreBuilt = require("./JavaScriptFiles/preBuilt.js"),
   bodyParser = require("body-parser");
 
 //setting up engines
@@ -107,12 +108,6 @@ app.post("/news", function (req, res) {
 //new news page
 app.get("/news/new", function (req, res) {
   res.render("new_news");
-});
-
-//pre-built page
-
-app.get("/preBuilt", function (req, res) {
-  res.render("preBuilt");
 });
 
 //gadgets page
@@ -450,5 +445,59 @@ app.get("/gadgets/earphones/new", function (req, res) {
   res.render("new_earphone");
 });
 
+//pre-built sections
+app.get("/gadgets/preBuilt", function (req, res) {
+  PreBuilt.find({}, function (err, allpreBuilt) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("preBuilt", { preBuilts: allpreBuilt });
+    }
+  });
+});
+
+app.post("/gadgets/preBuilt", function (req, res) {
+  var ModelName = req.body.ModelName;
+  var Description = req.body.Description;
+  var Image = req.body.Image;
+  var Price = req.body.Price;
+  var MotherBoard = req.body.MotherBoard;
+  var Processor = req.body.Processor;
+  var Brief = req.body.Brief;
+  var Connectivity = req.body.Connectivity;
+  var PSU = req.body.PSU;
+  var Memory = req.body.Memory;
+  var Cabinet = req.body.Cabinet;
+  var HardDisk = req.body.HardDisk;
+  var GraphicCard = req.body.GraphicCard;
+  var newBuilt = {
+    ModelName: ModelName,
+    Price: Price,
+    Description: Description,
+    Brief: Brief,
+    Image: Image,
+    Connectivity: Connectivity,
+    MotherBoard: MotherBoard,
+    Processor: Processor,
+    PSU: PSU,
+    Memory: Memory,
+    Cabinet: Cabinet,
+    HardDisk: HardDisk,
+    GraphicCard: GraphicCard,
+  };
+  PreBuilt.create(newBuilt, function (err, allBuilt) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("Built added successfully");
+      res.redirect("preBuilt");
+    }
+  });
+});
+
+//new addings
+app.get("/preBuilt/new", function (req, res) {
+  res.render("new_Built");
+});
 //server details
 app.listen(8080);
