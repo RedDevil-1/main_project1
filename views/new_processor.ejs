@@ -1,6 +1,6 @@
 <%- include ('../partials/header')%>
 
-<h1 class="mt-5 d-flex justify-content-around">Add a new NEWS</h1>
+<h1 class="mt-5 d-flex justify-content-around">Add a new Processor</h1>
 <div class="container">
   <div class="row">
     <div style="width: 50%; margin: 3% auto">
@@ -10,51 +10,55 @@
         action="/gadgets/processors"
       >
         <div class="form-group">
-          <input class="form-control" text" name="ModelName"
+          <input class="form-control" text" name="processor[ModelName]"
           placeholder="ModelName" />
         </div>
         <div class="form-group">
-          <input class="form-control" text" name="Brief" placeholder="Brief" />
+          <input class="form-control" text" name="processor[Brief]"
+          placeholder="Brief" />
         </div>
         <div class="form-group">
-          <input class="form-control" text" name="Description"
+          <input class="form-control" text" name="processor[Description]"
           placeholder="Description" />
         </div>
         <div class="form-group">
-          <input class="form-control" text" name="Image" placeholder="Image" />
+          <input class="form-control" text" name="processor[Image]"
+          placeholder="Image" />
         </div>
         <div class="form-group">
-          <input class="form-control" text" name="LaunchedDate"
+          <input class="form-control" text" name="processor[LaunchedDate]"
           placeholder="LaunchedDate" />
         </div>
         <div class="form-group">
-          <input class="form-control" text" name="Price" placeholder="Price" />
+          <input class="form-control" text" name="processor[Price]"
+          placeholder="Price" />
         </div>
         <div class="form-group">
-          <input class="form-control" text" name="ClockFrequency"
+          <input class="form-control" text" name="processor[ClockFrequency]"
           placeholder="ClockFrequency" />
         </div>
         <div class="form-group">
-          <input class="form-control" text" name="TurboFrequency"
+          <input class="form-control" text" name="processor[TurboFrequency]"
           placeholder="TurboFrequency" />
         </div>
         <div class="form-group">
-          <input class="form-control" text" name="PhysicalCores"
+          <input class="form-control" text" name="processor[PhysicalCores]"
           placeholder="PhysicalCores" />
         </div>
         <div class="form-group">
-          <input class="form-control" text" name="Threads" placeholder="Threads"
-          />
+          <input class="form-control" text" name="processor[Threads]"
+          placeholder="Threads" />
         </div>
         <div class="form-group">
-          <input class="form-control" text" name="Power" placeholder="Power" />
+          <input class="form-control" text" name="processor[Power]"
+          placeholder="Power" />
         </div>
         <div class="form-group">
-          <input class="form-control" text" name="BitWidth"
+          <input class="form-control" text" name="processor[BitWidth]"
           placeholder="BitWidth" />
         </div>
         <div class="form-group">
-          <input class="form-control" text" name="MaxMemory"
+          <input class="form-control" text" name="processor[MaxMemory]"
           placeholder="MaxMemory" />
         </div>
         <button class="btn btn-block btn-lg btn-info">Submit</button>

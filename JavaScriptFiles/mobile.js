@@ -14,4 +14,5 @@ var mobileSchema = new mongoose.Schema({
   Brief: String,
   Image: String,
 });
+
 module.exports = mongoose.model("Mobile", mobileSchema);

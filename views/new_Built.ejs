@@ -1,59 +1,59 @@
 <%- include ('../partials/header')%>
-<h1 class="mt-5 d-flex justify-content-around">Add a new NEWS</h1>
+<h1 class="mt-5 d-flex justify-content-around">Add a new PC</h1>
 <div class="container">
   <div class="row">
     <div style="width: 50%; margin: 3% auto">
-      <form
-        class="jsutify-content-around"
-        method="post"
-        action="/gadgets/preBuilt"
-      >
+      <form class="jsutify-content-around" method="post" action="/preBuilt">
         <div class="form-group">
-          <input class="form-control" text" name="ModelName"
+          <input class="form-control" text" name="build[ModelName]"
           placeholder="ModelName" />
         </div>
         <div class="form-group">
-          <input class="form-control" text" name="Brief" placeholder="Brief" />
+          <input class="form-control" text" name="build[Brief]"
+          placeholder="Brief" />
         </div>
         <div class="form-group">
-          <input class="form-control" text" name="Description"
+          <input class="form-control" text" name="build[Description}"
           placeholder="Description" />
         </div>
         <div class="form-group">
-          <input class="form-control" text" name="Image" placeholder="Image" />
+          <input class="form-control" text" name="build[Image]"
+          placeholder="Image" />
         </div>
         <div class="form-group">
-          <input class="form-control" text" name="Price" placeholder="Price" />
+          <input class="form-control" text" name="build[Price]"
+          placeholder="Price" />
         </div>
         <div class="form-group">
-          <input class="form-control" text" name="Memory" placeholder="Memory"
-          />
+          <input class="form-control" text" name="build[Memory]"
+          placeholder="Memory" />
         </div>
         <div class="form-group">
-          <input class="form-control" text" name="MotherBoard"
+          <input class="form-control" text" name="build[MotherBoard]"
           placeholder="MotherBoard"/>
         </div>
         <div class="form-group">
-          <input class="form-control" text" name="Connectivity"
+          <input class="form-control" text" name="build[Connectivity]"
           placeholder="Connectivity" />
         </div>
         <div class="form-group">
-          <input class="form-control" text" name="Processor"
+          <input class="form-control" text" name="build[Processor]"
           placeholder="Processor" />
         </div>
         <div class="form-group">
-          <input class="form-control" text" name="PSU" placeholder="PSU" />
-        </div>
-        <div class="form-group">
-          <input class="form-control" text" name="Cabinet" placeholder="Cabinet"
+          <input class="form-control" text" name="build[PSU]" placeholder="PSU"
           />
         </div>
         <div class="form-group">
-          <input class="form-control" text" name="HardDisk"
+          <input class="form-control" text" name="build[Cabinet]"
+          placeholder="Cabinet" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="build[HardDisk]"
           placeholder="HardDisk" />
         </div>
         <div class="form-group">
-          <input class="form-control" text" name="GraphicCard"
+          <input class="form-control" text" name="build[GraphicCard]"
           placeholder="GraphicCard" />
         </div>
 

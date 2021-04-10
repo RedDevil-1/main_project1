@@ -13,6 +13,7 @@ var express = require("express"),
   Headphones = require("./JavaScriptFiles/headphone.js"),
   Earphones = require("./JavaScriptFiles/earphone.js"),
   PreBuilt = require("./JavaScriptFiles/preBuilt.js"),
+  Gadget = require("./JavaScriptFiles/gadget.js"),
   bodyParser = require("body-parser");
 
 //setting up engines
@@ -84,18 +85,7 @@ app.get("/news", function (req, res) {
 
 //post request
 app.post("/news", function (req, res) {
-  var header = req.body.header;
-  var brief = req.body.brief;
-  var description = req.body.description;
-  var image = req.body.image;
-  var newNews = {
-    header: header,
-    brief: brief,
-    description: description,
-    image: image,
-  };
-
-  News.create(newNews, function (err, addedNews) {
+  News.create(req.body.news, function (err, addedNews) {
     if (err) {
       console.log(err);
     } else {
@@ -131,47 +121,19 @@ app.get("/gadgets/processors", function (req, res) {
 
 //post request
 app.post("/gadgets/processors", function (req, res) {
-  var ModelName = req.body.ModelName;
-  var LaunchedDate = req.body.LaunchedDate;
-  var Description = req.body.Description;
-  var Image = req.body.Image;
-  var Price = req.body.Price;
-  var ClockFrequency = req.body.ClockFrequency;
-  var TurboFrequency = req.body.TurboFrequency;
-  var PhysicalCores = req.body.PhysicalCores;
-  var Threads = req.body.Threads;
-  var Power = req.body.Power;
-  var BitWidth = req.body.BitWidth;
-  var MaxMemory = req.body.MaxMemory;
-  var Brief = req.body.Brief;
-
-  var newProcessor = {
-    ModelName: ModelName,
-    LaunchedDate: LaunchedDate,
-    Price: Price,
-    ClockFrequency: ClockFrequency,
-    TurboFrequency: TurboFrequency,
-    PhysicalCores: PhysicalCores,
-    Threads: Threads,
-    Power: Power,
-    BitWidth: BitWidth,
-    MaxMemory: MaxMemory,
-    Image: Image,
-    Description: Description,
-    Brief: Brief,
-  };
-  Processors.create(newProcessor, function (err, addProcessor) {
+  Processors.create(req.body.processor, function (err, addProcessor) {
     if (err) {
       console.log(err);
     } else {
       console.log("Processor added successfully");
+      console.log(addProcessor);
       res.redirect("processors");
     }
   });
 });
 
 //new processor page
-app.get("/processors/new", function (req, res) {
+app.get("/gadgets/processors/new", function (req, res) {
   res.render("new_processor");
 });
 
@@ -190,37 +152,12 @@ app.get("/gadgets/graphicCard", function (req, res) {
 
 //post request
 app.post("/gadgets/graphicCard", function (req, res) {
-  var ModelName = req.body.ModelName;
-  var LaunchedDate = req.body.LaunchedDate;
-  var Description = req.body.Description;
-  var Image = req.body.Image;
-  var Price = req.body.Price;
-  var GPUClock = req.body.GPUClock;
-  var GPUChip = req.body.GPUChip;
-  var MemoryClock = req.body.MemoryClock;
-  var Bus = req.body.Bus;
-  var Memory = req.body.Memory;
-  var Shaders = req.body.Shaders;
-  var Brief = req.body.Brief;
-  var newGraphic = {
-    ModelName: ModelName,
-    LaunchedDate: LaunchedDate,
-    Price: Price,
-    GPUClock: GPUClock,
-    GPUChip: GPUChip,
-    MemoryClock: MemoryClock,
-    Bus: Bus,
-    Memory: Memory,
-    Shaders: Shaders,
-    Description: Description,
-    Brief: Brief,
-    Image: Image,
-  };
-  GraphicCards.create(newGraphic, function (err, addGraphic) {
+  GraphicCards.create(req.body.graphic, function (err, addGraphic) {
     if (err) {
       console.log(err);
     } else {
       console.log("graphic card added successfully");
+      console.log(addGraphic);
       res.redirect("graphicCard");
     }
   });
@@ -246,37 +183,14 @@ app.get("/gadgets/laptops", function (req, res) {
 
 //post request
 app.post("/gadgets/laptops", function (req, res) {
-  var ModelName = req.body.ModelName;
-  var LaunchedDate = req.body.LaunchedDate;
-  var Description = req.body.Description;
-  var Image = req.body.Image;
-  var Price = req.body.Price;
-  var CPU = req.body.CPU;
-  var GPU = req.body.GPU;
-  var RAM = req.body.RAM;
-  var Display = req.body.Display;
-  var Memory = req.body.Memory;
-  var Camera = req.body.Camera;
-  var Brief = req.body.Brief;
-  var newLaptop = {
-    ModelName: ModelName,
-    LaunchedDate: LaunchedDate,
-    Price: Price,
-    CPU: CPU,
-    GPU: GPU,
-    RAM: RAM,
-    Display: Display,
-    Memory: Memory,
-    Camera: Camera,
-    Description: Description,
-    Brief: Brief,
-    Image: Image,
-  };
-  Laptops.create(newLaptop, function (err, addLaptop) {
+  Laptops.create(req.body.laptop, function (err, addLaptop) {
     if (err) {
       console.log(err);
     } else {
       console.log("Laptop added successfully");
+      console.log(addLaptop);
+      Gadget.laptops.push(addLaptop);
+      Gadget.save(done);
       res.redirect("Laptops");
     }
   });
@@ -301,45 +215,22 @@ app.get("/gadgets/mobiles", function (req, res) {
 });
 
 //post request
-app.post("/mobiles", function (req, res) {
-  var ModelName = req.body.ModelName;
-  var LaunchedDate = req.body.LaunchedDate;
-  var Description = req.body.Description;
-  var Image = req.body.Image;
-  var Price = req.body.Price;
-  var CPU = req.body.CPU;
-  var GPU = req.body.GPU;
-  var RAM = req.body.RAM;
-  var Display = req.body.Display;
-  var Memory = req.body.Memory;
-  var Camera = req.body.Camera;
-  var Brief = req.body.Brief;
-  var newMobile = {
-    ModelName: ModelName,
-    LaunchedDate: LaunchedDate,
-    Price: Price,
-    CPU: CPU,
-    GPU: GPU,
-    RAM: RAM,
-    Display: Display,
-    Memory: Memory,
-    Camera: Camera,
-    Description: Description,
-    Brief: Brief,
-    Image: Image,
-  };
-  Mobiles.create(newMobile, function (err, addMobile) {
+app.post("/gadgets/mobiles", function (req, res) {
+  Mobiles.create(req.body.mobile, function (err, addMobile) {
     if (err) {
       console.log(err);
     } else {
       console.log("mobile added successfully");
+      console.log(addMobile);
+      Gadget.mobiles.push(addMobile);
+      Gadget.save();
       res.redirect("mobiles");
     }
   });
 });
 
 //adding new object
-app.get("/mobiles/new", function (req, res) {
+app.get("/gadgets/mobiles/new", function (req, res) {
   res.render("new_mobile");
 });
 
@@ -358,33 +249,12 @@ app.get("/gadgets/headphones", function (req, res) {
 
 //post request
 app.post("/gadgets/headphones", function (req, res) {
-  var ModelName = req.body.ModelName;
-  var Description = req.body.Description;
-  var Image = req.body.Image;
-  var Price = req.body.Price;
-  var HeadphoneType = req.body.HeadphoneType;
-  var Mic = req.body.Mic;
-  var ConnectorType = req.body.ConnectorType;
-  var Brief = req.body.Brief;
-  var Connectivity = req.body.Connectivity;
-  var BatteryCapacity = req.body.BatteryCapacity;
-  var newHeadphone = {
-    ModelName: ModelName,
-    Price: Price,
-    Description: Description,
-    Brief: Brief,
-    Image: Image,
-    HeadphoneType: HeadphoneType,
-    Mic: Mic,
-    ConnectorType: ConnectorType,
-    Connectivity: Connectivity,
-    BatteryCapacity: BatteryCapacity,
-  };
-  Headphones.create(newHeadphone, function (err, addHeadphone) {
+  Headphones.create(req.body.headp, function (err, addHeadphone) {
     if (err) {
       console.log(err);
     } else {
       console.log("headphone added successfully");
+      console.log(addHeadphone);
       res.redirect("headphones");
     }
   });
@@ -410,31 +280,12 @@ app.get("/gadgets/earphones", function (req, res) {
 
 //post request
 app.post("/gadgets/earphones", function (req, res) {
-  var ModelName = req.body.ModelName;
-  var Description = req.body.Description;
-  var Image = req.body.Image;
-  var Price = req.body.Price;
-  var Mic = req.body.Mic;
-  var ConnectorType = req.body.ConnectorType;
-  var Brief = req.body.Brief;
-  var Connectivity = req.body.Connectivity;
-  var BatteryCapacity = req.body.BatteryCapacity;
-  var newEarphone = {
-    ModelName: ModelName,
-    Price: Price,
-    Description: Description,
-    Brief: Brief,
-    Image: Image,
-    Mic: Mic,
-    ConnectorType: ConnectorType,
-    Connectivity: Connectivity,
-    BatteryCapacity: BatteryCapacity,
-  };
-  Earphones.create(newEarphone, function (err, addEarphone) {
+  Earphones.create(req.body.ear, function (err, addEarphone) {
     if (err) {
       console.log(err);
     } else {
       console.log("Earphone added successfully");
+      console.log(addEarphone);
       res.redirect("earphones");
     }
   });
@@ -446,7 +297,7 @@ app.get("/gadgets/earphones/new", function (req, res) {
 });
 
 //pre-built sections
-app.get("/gadgets/preBuilt", function (req, res) {
+app.get("/preBuilt", function (req, res) {
   PreBuilt.find({}, function (err, allpreBuilt) {
     if (err) {
       console.log(err);
@@ -456,40 +307,15 @@ app.get("/gadgets/preBuilt", function (req, res) {
   });
 });
 
-app.post("/gadgets/preBuilt", function (req, res) {
-  var ModelName = req.body.ModelName;
-  var Description = req.body.Description;
-  var Image = req.body.Image;
-  var Price = req.body.Price;
-  var MotherBoard = req.body.MotherBoard;
-  var Processor = req.body.Processor;
-  var Brief = req.body.Brief;
-  var Connectivity = req.body.Connectivity;
-  var PSU = req.body.PSU;
-  var Memory = req.body.Memory;
-  var Cabinet = req.body.Cabinet;
-  var HardDisk = req.body.HardDisk;
-  var GraphicCard = req.body.GraphicCard;
-  var newBuilt = {
-    ModelName: ModelName,
-    Price: Price,
-    Description: Description,
-    Brief: Brief,
-    Image: Image,
-    Connectivity: Connectivity,
-    MotherBoard: MotherBoard,
-    Processor: Processor,
-    PSU: PSU,
-    Memory: Memory,
-    Cabinet: Cabinet,
-    HardDisk: HardDisk,
-    GraphicCard: GraphicCard,
-  };
-  PreBuilt.create(newBuilt, function (err, allBuilt) {
+//post sections
+
+app.post("/preBuilt", function (req, res) {
+  PreBuilt.create(req.body.build, function (err, allBuilt) {
     if (err) {
       console.log(err);
     } else {
       console.log("Built added successfully");
+      console.log(allBuilt);
       res.redirect("preBuilt");
     }
   });

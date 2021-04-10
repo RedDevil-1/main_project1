@@ -14,4 +14,5 @@ var laptopSchema = new mongoose.Schema({
   Brief: String,
   Image: String,
 });
+
 module.exports = mongoose.model("Laptop", laptopSchema);
