@@ -100,6 +100,17 @@ app.get("/news/new", function (req, res) {
   res.render("new_news");
 });
 
+//redirecting to a specific mobile page
+app.get("/news/:id", function (req, res) {
+  News.findById(req.params.id, function (err, foundNews) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("singleNews", { news: foundNews });
+    }
+  });
+});
+
 //gadgets page
 
 app.get("/Gadgets", function (req, res) {
@@ -137,6 +148,17 @@ app.get("/gadgets/processors/new", function (req, res) {
   res.render("new_processor");
 });
 
+//redirecting to a specific mobile page
+app.get("/gadgets/processors/:id", function (req, res) {
+  Processors.findById(req.params.id, function (err, foundProcessor) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("singleProcessor", { processor: foundProcessor });
+    }
+  });
+});
+
 //Graphic card section
 
 //main render page
@@ -168,6 +190,17 @@ app.get("/gadgets/graphicCard/new", function (req, res) {
   res.render("new_graphicCard");
 });
 
+//redirecting to a specific mobile page
+app.get("/gadgets/graphicCard/:id", function (req, res) {
+  GraphicCards.findById(req.params.id, function (err, foundCard) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("singleGraphicCard", { card: foundCard });
+    }
+  });
+});
+
 //Laptop section
 
 //main page
@@ -189,8 +222,8 @@ app.post("/gadgets/laptops", function (req, res) {
     } else {
       console.log("Laptop added successfully");
       console.log(addLaptop);
-      Gadget.laptops.push(addLaptop);
-      Gadget.save(done);
+      // Gadget.laptops.push(addLaptop);
+      // Gadget.save(done);
       res.redirect("Laptops");
     }
   });
@@ -199,6 +232,17 @@ app.post("/gadgets/laptops", function (req, res) {
 //new laptop
 app.get("/gadgets/laptops/new", function (req, res) {
   res.render("new_laptop");
+});
+
+//redirecting to a specific laptop page
+app.get("/gadgets/laptops/:id", function (req, res) {
+  Laptops.findById(req.params.id, function (err, foundLaptop) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("singleLaptop", { laptop: foundLaptop });
+    }
+  });
 });
 
 // Mobile section
@@ -223,7 +267,7 @@ app.post("/gadgets/mobiles", function (req, res) {
       console.log("mobile added successfully");
       console.log(addMobile);
       Gadget.mobiles.push(addMobile);
-      Gadget.save();
+      Gadget.save(done);
       res.redirect("mobiles");
     }
   });
@@ -232,6 +276,17 @@ app.post("/gadgets/mobiles", function (req, res) {
 //adding new object
 app.get("/gadgets/mobiles/new", function (req, res) {
   res.render("new_mobile");
+});
+
+//redirecting to a specific mobile page
+app.get("/gadgets/mobiles/:id", function (req, res) {
+  Mobiles.findById(req.params.id, function (err, foundMobile) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("singleMobile", { mobile: foundMobile });
+    }
+  });
 });
 
 // Headphones section
@@ -265,6 +320,17 @@ app.get("/gadgets/headphones/new", function (req, res) {
   res.render("new_headphone");
 });
 
+//redirecting to a specific mobile page
+app.get("/gadgets/headphones/:id", function (req, res) {
+  Headphones.findById(req.params.id, function (err, foundHeadphone) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("singleHeadphone", { headphone: foundHeadphone });
+    }
+  });
+});
+
 //earphones section
 
 //main render page
@@ -296,6 +362,16 @@ app.get("/gadgets/earphones/new", function (req, res) {
   res.render("new_earphone");
 });
 
+//redirecting to a specific mobile page
+app.get("/gadgets/earphones/:id", function (req, res) {
+  Earphones.findById(req.params.id, function (err, foundEarphone) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("singleEarphone", { earphone: foundEarphone });
+    }
+  });
+});
 //pre-built sections
 app.get("/preBuilt", function (req, res) {
   PreBuilt.find({}, function (err, allpreBuilt) {
@@ -325,5 +401,17 @@ app.post("/preBuilt", function (req, res) {
 app.get("/preBuilt/new", function (req, res) {
   res.render("new_Built");
 });
+
+//redirecting to a specific mobile page
+app.get("/preBuilt/:id", function (req, res) {
+  PreBuilt.findById(req.params.id, function (err, foundpreBuilt) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("singlePreBuilt", { preBuilt: foundpreBuilt });
+    }
+  });
+});
+
 //server details
 app.listen(8080);

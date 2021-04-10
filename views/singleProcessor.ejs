@@ -1,0 +1,105 @@
+<%- include ('../partials/header')%>
+<link rel="stylesheet" type="text/css" href="/news.css" />
+<link
+  href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+  rel="stylesheet"
+/>
+<style>
+ 
+  th{
+    text-align: center;
+  }
+  td{
+    text-align: center;
+  }
+  table, th, td {
+  border: 2px solid black;
+  border-collapse: collapse;
+}
+</style>
+<div id="container">
+  <div class="jumbotron text-center" style="border-radius: 35px">
+    <h1>Welcome to the processor Section</h1>
+  </div>
+</div>
+<div class="ml-4 mr-0" style="margin-top: 10px">
+  <div class="d-flex pr-0">
+    <div class="row col-md-10 col-8 justify-content-around  p-0">
+      <img src="<%=processor.Image%>" style="height:600px;"class="row col-md-3 col-12 bg-info p-0"></img>
+
+      <div class="row col-md-8 col-12">
+        <table>
+          <tr>
+            <th><h2>Specs</h2></th>
+            <th><h2>Details</h2></th>
+          </tr>
+          <tr>
+            <td><b>Model Name</b></td>
+            <td><%=processor.ModelName%></td>
+          </tr>
+          <tr>
+            <td><b>Launch Date</b></td>
+            <td><%=processor.LaunchedDate%></td>
+          </tr>
+          <tr>
+            <td><b>Launch Price</b></td>
+            <td>₹<%=processor.Price%></td>
+          </tr>
+          <tr>
+            <td><b>Clock Frequency</b></td>
+            <td><%=processor.ClockFrequency%></td>
+          </tr>
+          <tr>
+            <td><b>Turbo Frequency</b></td>
+            <td><%=processor.TurboFrequency%></td>
+          </tr>
+          <tr>
+            <td><b>No. of Physical Cores</b></td>
+            <td><%=processor.PhysicalCores%></td>
+          </tr>
+          <tr>
+            <td><b>Threads</b></td>
+            <td><%=processor.Threads%></td>
+          </tr>
+          <tr>
+              <td><b>Power</b></td>
+            <td><%=processor.Power%></td>
+          </tr>
+          <tr>
+            <td><b>Bit-Width</b></td>
+          <td><%=processor.BitWidth%></td>
+        </tr>
+        <tr>
+            <td><b>Max Memory</b></td>
+          <td><%=processor.MaxMemory%></td>
+        </tr>
+          <tr>
+            <td colspan="2"><b>Description</b><br>
+            <%=processor.Description%>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="d-flex flex-row col-md-2 col-4 mr-0 pr-0">
+      <div class="container">
+        <form class="searchbar">
+          <input
+            type="search"
+            placeholder="Search here"
+            name="search"
+            class="searchbar-input"
+            onkeyup="buttonUp();"
+            required
+          />
+          <input type="submit" class="searchbar-submit" value="GO" />
+          <span class="searchbar-icon"
+            ><i class="fa fa-search" aria-hidden="true"></i
+          ></span>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include ('../partials/footer')%>

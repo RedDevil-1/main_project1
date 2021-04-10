@@ -1,0 +1,107 @@
+<%- include ('../partials/header')%>
+<link rel="stylesheet" type="text/css" href="/news.css" />
+<link
+  href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+  rel="stylesheet"
+/>
+<style>
+ 
+  th{
+    text-align: center;
+  }
+  td{
+    text-align: center;
+  }
+  table, th, td {
+  border: 2px solid black;
+  border-collapse: collapse;
+}
+</style>
+<div id="container">
+  <div class="jumbotron text-center" style="border-radius: 35px">
+    <h1>Welcome to the Pre-Built Section</h1>
+  </div>
+</div>
+<div class="ml-4 mr-0" style="margin-top: 10px">
+  <div class="d-flex pr-0">
+    <div class="row col-md-10 col-8 justify-content-around  p-0">
+      <img src="<%=preBuilt.Image%>" style="height:600px;"class="row col-md-3 col-12 bg-info p-0"></img>
+
+      <div class="row col-md-8 col-12">
+        <table>
+          <tr>
+            <th><h2>Specs</h2></th>
+            <th><h2>Details</h2></th>
+          </tr>
+          <tr>
+            <td><b>Model Name</b></td>
+            <td><%=preBuilt.ModelName%></td>
+          </tr>
+          <tr>
+            <td><b>Total Cost</b></td>
+            <td>₹<%=preBuilt.Price%></td>
+          </tr>
+           <tr>
+            <td><b>Graphic Card</b></td>
+            <td><%=preBuilt.GraphicCard%></td>
+          </tr>
+          <tr>
+            <td><b>Processor</b></td>
+            <td><%=preBuilt.Processor%></td>
+          </tr>
+          <tr>
+          <tr>
+            <td><b>Hard Disk</b></td>
+            <td><%=preBuilt.HardDisk%></td>
+          </tr>
+            <td><b>Memory</b></td>
+            <td><%=preBuilt.Memory%></td>
+          </tr>
+          <tr>
+            <td><b>Mother Board</b></td>
+            <td><%=preBuilt.MotherBoard%></td>
+          </tr>
+          <tr>
+            <td><b>Connectivity</b></td>
+            <td><%=preBuilt.Connectivity%></td>
+          </tr>
+          <tr>
+            <td><b>Power Supply unit</b></td>
+            <td><%=preBuilt.PSU%> W</td>
+          </tr>
+          <tr>
+            <td><b>Cabinet</b></td>
+            <td><%=preBuilt.Cabinet%></td>
+          </tr>
+         
+         
+          <tr>
+            <td colspan="2"><b>Description</b><br>
+            <%=preBuilt.Description%>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="d-flex flex-row col-md-2 col-4 mr-0 pr-0">
+      <div class="container">
+        <form class="searchbar">
+          <input
+            type="search"
+            placeholder="Search here"
+            name="search"
+            class="searchbar-input"
+            onkeyup="buttonUp();"
+            required
+          />
+          <input type="submit" class="searchbar-submit" value="GO" />
+          <span class="searchbar-icon"
+            ><i class="fa fa-search" aria-hidden="true"></i
+          ></span>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include ('../partials/footer')%>
