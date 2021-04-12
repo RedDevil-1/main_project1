@@ -1,6 +1,7 @@
 <%- include ('../partials/header')%>
 
 <link rel="stylesheet" type="text/css" href="/general.css" />
+
 <style>
   * {
     box-sizing: border-box
@@ -8,7 +9,8 @@
 
   .mySlides1,
   .mySlides2 {
-    display: none padding: 0px;
+    display: none;
+    
   }
 
   img {
@@ -24,36 +26,53 @@
   }
 
   /* Next & previous buttons */
-  .prev,
-  .next {
+  .prev{
     cursor: pointer;
     position: absolute;
     top: 50%;
-    width: auto;
+    left:0;
+    width: 5px;
     padding: 16px;
     margin-top: -22px;
     color: white;
     font-weight: bold;
-    font-size: 18px;
-    transition: 0.6s ease;
-    border-radius: 0 3px 3px 0;
+    font-size: 12px;
+    transition: 0.7s ease;
+    border-radius: 10px 5px 5px 10px;
+    
     user-select: none;
-  }
+    background-color: black;
 
-  /* Position the "next button" to the right */
+  }
   .next {
-    right: 10;
-    border-radius: 3px 0 0 3px;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: 5px;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+    transition: 0.7s ease;
+    right: 0;
+    border-radius: 5px 10px 10px 5px;
+    user-select: none;
+    background-color: black;
   }
 
+  
   /* On hover, add a grey background color */
   .prev:hover,
   .next:hover {
     background-color: #f1f1f1;
     color: black;
   }
-
- 
+  p{
+    font-weight: bold;
+    font-size: large;
+    text-align: center;
+  }
 </style>
 
 <div class="container bg-light" id="jumboMargin">
@@ -74,12 +93,28 @@
       <div class="d-flex flex-row">
         <% news.forEach(function(newsAll){%>
         <div class="mySlides1">
-          <div class="col-md-6 flex-inline-block">
+         <table>
+           <tr >
+            <td colspan="2">
+              <h4 style="text-align: center;">
+               <%=newsAll.header%>
+                </h4>
+              </td>      
+            </tr>
+            <tr>
+             <td >
             <img src="<%=newsAll.image%>" style="width:100%; height:300px" >
-            
-            <!-- <img src="" style="width: 600px; height: 400px;"> -->
-          </div>
+<!-- <img src="" style="width: 600px; height: 400px;"> -->
+</td>     
 
+  <td><p>
+    <%=newsAll.brief%>
+  </p>
+  </td>
+</tr>
+          
+            </table>
+            
           <a class="prev" onclick="plusSlides(-1, 0)">&#10094;</a>
           <a class="next" onclick="plusSlides(1, 0)">&#10095;</a>
         </div>
@@ -130,5 +165,5 @@
     </div>
   </div>
 </div>
-
+<script src="/slideshow.js"></script>
 <%- include ('../partials/footer')%>

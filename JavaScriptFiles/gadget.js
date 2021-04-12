@@ -6,7 +6,7 @@ var mongoose = require("mongoose"),
   Headphones = require("./headphone"),
   Earphones = require("./earphone");
 mongoose.connect("mongodb://localhost/news_update");
-var gadgetSchema = new mongoose.Schema({
+const gadgetSchema = new mongoose.Schema({
   mobiles: [
     {
       type: mongoose.Schema.Types.ObjectId,

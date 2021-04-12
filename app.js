@@ -4,8 +4,10 @@ var express = require("express"),
   mongoose = require("mongoose"),
   Schema = mongoose.Schema,
   fs = require("fs"),
+  passport = require("passport"),
+  LocalStrategy = require("passport-local"),
   News = require("./JavaScriptFiles/news.js"),
-  Admins = require("./JavaScriptFiles/admin.js"),
+  User = require("./JavaScriptFiles/admin.js"),
   Mobiles = require("./JavaScriptFiles/mobile.js"),
   Processors = require("./JavaScriptFiles/processor.js"),
   GraphicCards = require("./JavaScriptFiles/graphicCard.js"),
@@ -24,12 +26,35 @@ app.set("view engine", "ejs");
 mongoose.connect("mongodb://localhost/news_update");
 
 //including various files
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(
+  require("express-session")({
+    secret: "just a try",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(express.json());
+app.use(express.urlencoded());
+passport.use(
+  new LocalStrategy(
+    {
+      usernameField: "email",
+    },
+    User.authenticate()
+  )
+);
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("views"));
 app.use(express.static(path.join(__dirname, "news")));
 app.use(express.static(path.join(__dirname, "cssFiles")));
 app.use(express.static(path.join(__dirname, "JavaScriptFiles")));
 app.use(express.static(path.join(__dirname, "images")));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 //first display page
 
@@ -100,7 +125,7 @@ app.get("/news/new", function (req, res) {
   res.render("new_news");
 });
 
-//redirecting to a specific mobile page
+//redirecting to a specific news page
 app.get("/news/:id", function (req, res) {
   News.findById(req.params.id, function (err, foundNews) {
     if (err) {
@@ -148,7 +173,7 @@ app.get("/gadgets/processors/new", function (req, res) {
   res.render("new_processor");
 });
 
-//redirecting to a specific mobile page
+//redirecting to a specific processor page
 app.get("/gadgets/processors/:id", function (req, res) {
   Processors.findById(req.params.id, function (err, foundProcessor) {
     if (err) {
@@ -190,7 +215,7 @@ app.get("/gadgets/graphicCard/new", function (req, res) {
   res.render("new_graphicCard");
 });
 
-//redirecting to a specific mobile page
+//redirecting to a specific graphic page
 app.get("/gadgets/graphicCard/:id", function (req, res) {
   GraphicCards.findById(req.params.id, function (err, foundCard) {
     if (err) {
@@ -266,8 +291,8 @@ app.post("/gadgets/mobiles", function (req, res) {
     } else {
       console.log("mobile added successfully");
       console.log(addMobile);
-      Gadget.mobiles.push(addMobile);
-      Gadget.save(done);
+      // Gadget.mobiles.push(addMobile);
+      // Gadget.save();
       res.redirect("mobiles");
     }
   });
@@ -413,5 +438,54 @@ app.get("/preBuilt/:id", function (req, res) {
   });
 });
 
+//admin panel
+app.get("/admin/signup", function (req, res) {
+  res.render("admin_signup");
+});
+
+//admin signup handle
+app.post("/admin/signup", function (req, res) {
+  User.register(
+    new User({ username: req.body.email }),
+    req.body.password,
+    function (err, user) {
+      if (err) {
+        console.log(err);
+        return res.render("admin_signup");
+      }
+      passport.authenticate("local")(req, res, function () {
+        res.redirect("/home");
+      });
+    }
+  );
+});
+
+//show login form
+app.get("/admin/login", function (req, res) {
+  res.render("admin_login");
+});
+
+//Handling login logic
+app.post(
+  "/admin/login",
+  passport.authenticate("local", {
+    successRedirect: "/home",
+    failureRedirect: "/admin/login",
+    // successFlash: "Welcome!",
+  }),
+  function (req, res) {
+    // res.send("welcome to login");
+  }
+);
+
+//Authentication
+function checkAuthentication(req, res, next) {
+  if (req.isAuthenticated()) {
+    //req.isAuthenticated() will return true if user is logged in
+    next();
+  } else {
+    res.redirect("/login");
+  }
+}
 //server details
 app.listen(8080);
