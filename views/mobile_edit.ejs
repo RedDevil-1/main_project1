@@ -1,0 +1,66 @@
+<%- include ('../partials/header')%>
+<h1 class="mt-5 d-flex justify-content-around">Add a new Mobile</h1>
+<div class="container">
+  <div class="row">
+    <div style="width: 50%; margin: 3% auto">
+      <form
+        class="jsutify-content-around"
+        method="post"
+        action="/gadgets/mobiles/<%=mobile._id%>?_method=Put"
+      >
+        <div class="form-group">
+          <input class="form-control" text" name="mobile[ModelName]"
+          value="<%=mobile.ModelName%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="mobile[Brief]"
+          value="<%=mobile.Brief%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="mobile[Description]"
+          value="<%=mobile.Description%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="mobile[Image]"
+          value="<%=mobile.Image%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="mobile[LaunchedDate]"
+          value="<%=mobile.LaunchedDate%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="mobile[Price]"
+          value="<%=mobile.Price%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="mobile[CPU]"
+          value="<%=mobile.CPU%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="mobile[GPU]"
+          value="<%=mobile.GPU%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="mobile[RAM]"
+          value="<%=mobile.RAM%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="mobile[Display]"
+          value="<%=mobile.Display%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="mobile[Memory]"
+          value="<%=mobile.Memory%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="mobile[Camera]"
+          value="<%=mobile.Camera%>" />
+        </div>
+        <button class="btn btn-block btn-lg btn-info">Submit</button>
+        <div class="form-group"></div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include ('../partials/footer')%>

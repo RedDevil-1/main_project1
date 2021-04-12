@@ -16,6 +16,7 @@ var express = require("express"),
   Earphones = require("./JavaScriptFiles/earphone.js"),
   PreBuilt = require("./JavaScriptFiles/preBuilt.js"),
   Gadget = require("./JavaScriptFiles/gadget.js"),
+  MethodOverride = require("method-override"),
   bodyParser = require("body-parser");
 
 //setting up engines
@@ -23,7 +24,7 @@ app.set("views", "./views");
 app.set("view engine", "ejs");
 
 // connecting to MongoDB
-mongoose.connect("mongodb://localhost/news_update");
+mongoose.connect("mongodb://localhost/news_update", { useNewUrlParser: true });
 
 //including various files
 app.use(
@@ -33,10 +34,11 @@ app.use(
     saveUninitialized: false,
   })
 );
+app.use(MethodOverride("_method"));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.json());
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 passport.use(
   new LocalStrategy(
     {
@@ -52,6 +54,10 @@ app.use(express.static(path.join(__dirname, "news")));
 app.use(express.static(path.join(__dirname, "cssFiles")));
 app.use(express.static(path.join(__dirname, "JavaScriptFiles")));
 app.use(express.static(path.join(__dirname, "images")));
+app.use(function (req, res, next) {
+  res.locals.currentUser = req.user;
+  next();
+});
 
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
@@ -109,7 +115,7 @@ app.get("/news", function (req, res) {
 });
 
 //post request
-app.post("/news", function (req, res) {
+app.post("/news", checkAuthentication, function (req, res) {
   News.create(req.body.news, function (err, addedNews) {
     if (err) {
       console.log(err);
@@ -121,7 +127,7 @@ app.post("/news", function (req, res) {
 });
 
 //new news page
-app.get("/news/new", function (req, res) {
+app.get("/news/new", checkAuthentication, function (req, res) {
   res.render("new_news");
 });
 
@@ -136,6 +142,39 @@ app.get("/news/:id", function (req, res) {
   });
 });
 
+//edit a news
+app.get("/news/:id/edit", checkAuthentication, function (req, res) {
+  News.findById(req.params.id, function (err, foundNews) {
+    if (err) {
+      res.redirect("/news");
+    } else {
+      res.render("news_edit", { news: foundNews });
+    }
+  });
+});
+
+//update the news
+app.put("/news/:id", checkAuthentication, function (req, res) {
+  News.findByIdAndUpdate(req.params.id, req.body.news, function (err, udNews) {
+    if (err) {
+      res.redirect("/news/" + req.params.id + "/edit");
+    } else {
+      res.redirect("/news/" + req.params.id);
+    }
+  });
+});
+
+//deleting news
+
+app.delete("/news/:id", checkAuthentication, function (req, res) {
+  News.findByIdAndRemove(req.params.id, function (err) {
+    if (err) {
+      res.redirect("/news/" + req.params.id);
+    } else {
+      res.redirect("/news");
+    }
+  });
+});
 //gadgets page
 
 app.get("/Gadgets", function (req, res) {
@@ -156,7 +195,7 @@ app.get("/gadgets/processors", function (req, res) {
 });
 
 //post request
-app.post("/gadgets/processors", function (req, res) {
+app.post("/gadgets/processors", checkAuthentication, function (req, res) {
   Processors.create(req.body.processor, function (err, addProcessor) {
     if (err) {
       console.log(err);
@@ -169,7 +208,7 @@ app.post("/gadgets/processors", function (req, res) {
 });
 
 //new processor page
-app.get("/gadgets/processors/new", function (req, res) {
+app.get("/gadgets/processors/new", checkAuthentication, function (req, res) {
   res.render("new_processor");
 });
 
@@ -184,6 +223,46 @@ app.get("/gadgets/processors/:id", function (req, res) {
   });
 });
 
+app.get(
+  "/gadgets/processors/:id/edit",
+  checkAuthentication,
+  function (req, res) {
+    Processors.findById(req.params.id, function (err, foundProcessor) {
+      if (err) {
+        res.redirect("/gadgets/processors");
+      } else {
+        res.render("processor_edit", { processor: foundProcessor });
+      }
+    });
+  }
+);
+
+//update the processor
+app.put("/gadgets/processors/:id", checkAuthentication, function (req, res) {
+  Processors.findByIdAndUpdate(
+    req.params.id,
+    req.body.processor,
+    function (err, udProcessor) {
+      if (err) {
+        res.redirect("/gadgets/processors/" + req.params.id + "/edit");
+      } else {
+        res.redirect("/gadgets/processors/" + req.params.id);
+      }
+    }
+  );
+});
+
+//deleting Processor
+
+app.delete("/gadgets/processors/:id", checkAuthentication, function (req, res) {
+  Processors.findByIdAndRemove(req.params.id, function (err) {
+    if (err) {
+      res.redirect("/gadgets/processors/" + req.params.id);
+    } else {
+      res.redirect("/gadgets/processors");
+    }
+  });
+});
 //Graphic card section
 
 //main render page
@@ -198,7 +277,7 @@ app.get("/gadgets/graphicCard", function (req, res) {
 });
 
 //post request
-app.post("/gadgets/graphicCard", function (req, res) {
+app.post("/gadgets/graphicCard", checkAuthentication, function (req, res) {
   GraphicCards.create(req.body.graphic, function (err, addGraphic) {
     if (err) {
       console.log(err);
@@ -211,7 +290,7 @@ app.post("/gadgets/graphicCard", function (req, res) {
 });
 
 //adding new object
-app.get("/gadgets/graphicCard/new", function (req, res) {
+app.get("/gadgets/graphicCard/new", checkAuthentication, function (req, res) {
   res.render("new_graphicCard");
 });
 
@@ -225,6 +304,50 @@ app.get("/gadgets/graphicCard/:id", function (req, res) {
     }
   });
 });
+
+app.get(
+  "/gadgets/graphicCard/:id/edit",
+  checkAuthentication,
+  function (req, res) {
+    GraphicCards.findById(req.params.id, function (err, foundGraphic) {
+      if (err) {
+        res.redirect("/gadgets/graphicCard");
+      } else {
+        res.render("graphic_edit", { graphic: foundGraphic });
+      }
+    });
+  }
+);
+
+//update the GraphicCard
+app.put("/gadgets/graphicCard/:id", checkAuthentication, function (req, res) {
+  GraphicCards.findByIdAndUpdate(
+    req.params.id,
+    req.body.graphic,
+    function (err, udGraphic) {
+      if (err) {
+        res.redirect("/gadgets/graphicCard/" + req.params.id + "/edit");
+      } else {
+        res.redirect("/gadgets/graphicCard/" + req.params.id);
+      }
+    }
+  );
+});
+
+//deleting Graphic Card
+app.delete(
+  "/gadgets/graphicCard/:id",
+  checkAuthentication,
+  function (req, res) {
+    GraphicCards.findByIdAndRemove(req.params.id, function (err) {
+      if (err) {
+        res.redirect("/gadgets/graphicCard/" + req.params.id);
+      } else {
+        res.redirect("/gadgets/graphicCard");
+      }
+    });
+  }
+);
 
 //Laptop section
 
@@ -240,7 +363,7 @@ app.get("/gadgets/laptops", function (req, res) {
 });
 
 //post request
-app.post("/gadgets/laptops", function (req, res) {
+app.post("/gadgets/laptops", checkAuthentication, function (req, res) {
   Laptops.create(req.body.laptop, function (err, addLaptop) {
     if (err) {
       console.log(err);
@@ -255,7 +378,7 @@ app.post("/gadgets/laptops", function (req, res) {
 });
 
 //new laptop
-app.get("/gadgets/laptops/new", function (req, res) {
+app.get("/gadgets/laptops/new", checkAuthentication, function (req, res) {
   res.render("new_laptop");
 });
 
@@ -270,6 +393,42 @@ app.get("/gadgets/laptops/:id", function (req, res) {
   });
 });
 
+app.get("/gadgets/laptops/:id/edit", checkAuthentication, function (req, res) {
+  Laptops.findById(req.params.id, function (err, foundLaptop) {
+    if (err) {
+      res.redirect("/gadgets/laptops");
+    } else {
+      res.render("laptop_edit", { laptop: foundLaptop });
+    }
+  });
+});
+
+//update the laptop
+app.put("/gadgets/laptops/:id", checkAuthentication, function (req, res) {
+  Laptops.findByIdAndUpdate(
+    req.params.id,
+    req.body.laptop,
+    function (err, udLaptop) {
+      if (err) {
+        res.redirect("/gadgets/laptops/" + req.params.id + "/edit");
+      } else {
+        res.redirect("/gadgets/laptops/" + req.params.id);
+      }
+    }
+  );
+});
+
+//deleting laptops
+
+app.delete("/gadgets/laptops/:id", checkAuthentication, function (req, res) {
+  Laptops.findByIdAndRemove(req.params.id, function (err) {
+    if (err) {
+      res.redirect("/gadgets/laptops/" + req.params.id);
+    } else {
+      res.redirect("/gadgets/laptops");
+    }
+  });
+});
 // Mobile section
 
 //main render page
@@ -284,7 +443,7 @@ app.get("/gadgets/mobiles", function (req, res) {
 });
 
 //post request
-app.post("/gadgets/mobiles", function (req, res) {
+app.post("/gadgets/mobiles", checkAuthentication, function (req, res) {
   Mobiles.create(req.body.mobile, function (err, addMobile) {
     if (err) {
       console.log(err);
@@ -299,7 +458,7 @@ app.post("/gadgets/mobiles", function (req, res) {
 });
 
 //adding new object
-app.get("/gadgets/mobiles/new", function (req, res) {
+app.get("/gadgets/mobiles/new", checkAuthentication, function (req, res) {
   res.render("new_mobile");
 });
 
@@ -310,6 +469,43 @@ app.get("/gadgets/mobiles/:id", function (req, res) {
       console.log(err);
     } else {
       res.render("singleMobile", { mobile: foundMobile });
+    }
+  });
+});
+
+app.get("/gadgets/mobiles/:id/edit", checkAuthentication, function (req, res) {
+  Mobiles.findById(req.params.id, function (err, foundMobile) {
+    if (err) {
+      res.redirect("/gadgets/mobiles");
+    } else {
+      res.render("mobile_edit", { mobile: foundMobile });
+    }
+  });
+});
+
+//update the Mobile
+app.put("/gadgets/mobiles/:id", checkAuthentication, function (req, res) {
+  Mobiles.findByIdAndUpdate(
+    req.params.id,
+    req.body.mobile,
+    function (err, udMobile) {
+      if (err) {
+        res.redirect("/gadgets/mobiles/" + req.params.id + "/edit");
+      } else {
+        res.redirect("/gadgets/mobiles/" + req.params.id);
+      }
+    }
+  );
+});
+
+//deleting mobile
+
+app.delete("/gadgets/mobiles/:id", checkAuthentication, function (req, res) {
+  Mobiles.findByIdAndRemove(req.params.id, function (err) {
+    if (err) {
+      res.redirect("/gadgets/mobiles/" + req.params.id);
+    } else {
+      res.redirect("/gadgets/mobiles");
     }
   });
 });
@@ -328,7 +524,7 @@ app.get("/gadgets/headphones", function (req, res) {
 });
 
 //post request
-app.post("/gadgets/headphones", function (req, res) {
+app.post("/gadgets/headphones", checkAuthentication, function (req, res) {
   Headphones.create(req.body.headp, function (err, addHeadphone) {
     if (err) {
       console.log(err);
@@ -341,7 +537,7 @@ app.post("/gadgets/headphones", function (req, res) {
 });
 
 //adding new object
-app.get("/gadgets/headphones/new", function (req, res) {
+app.get("/gadgets/headphones/new", checkAuthentication, function (req, res) {
   res.render("new_headphone");
 });
 
@@ -352,6 +548,47 @@ app.get("/gadgets/headphones/:id", function (req, res) {
       console.log(err);
     } else {
       res.render("singleHeadphone", { headphone: foundHeadphone });
+    }
+  });
+});
+
+app.get(
+  "/gadgets/headphones/:id/edit",
+  checkAuthentication,
+  function (req, res) {
+    Headphones.findById(req.params.id, function (err, foundHead) {
+      if (err) {
+        res.redirect("/gadgets/headphones");
+      } else {
+        res.render("headphone_edit", { headp: foundHead });
+      }
+    });
+  }
+);
+
+//update the Headphone
+app.put("/gadgets/headphones/:id", checkAuthentication, function (req, res) {
+  Headphones.findByIdAndUpdate(
+    req.params.id,
+    req.body.headp,
+    function (err, udHead) {
+      if (err) {
+        res.redirect("/gadgets/headphones/" + req.params.id + "/edit");
+      } else {
+        res.redirect("/gadgets/headphones/" + req.params.id);
+      }
+    }
+  );
+});
+
+//deleting Headphone
+
+app.delete("/gadgets/headphones/:id", checkAuthentication, function (req, res) {
+  Headphones.findByIdAndRemove(req.params.id, function (err) {
+    if (err) {
+      res.redirect("/gadgets/headphones/" + req.params.id);
+    } else {
+      res.redirect("/gadgets/headphones");
     }
   });
 });
@@ -370,7 +607,7 @@ app.get("/gadgets/earphones", function (req, res) {
 });
 
 //post request
-app.post("/gadgets/earphones", function (req, res) {
+app.post("/gadgets/earphones", checkAuthentication, function (req, res) {
   Earphones.create(req.body.ear, function (err, addEarphone) {
     if (err) {
       console.log(err);
@@ -383,7 +620,7 @@ app.post("/gadgets/earphones", function (req, res) {
 });
 
 //adding new object
-app.get("/gadgets/earphones/new", function (req, res) {
+app.get("/gadgets/earphones/new", checkAuthentication, function (req, res) {
   res.render("new_earphone");
 });
 
@@ -397,6 +634,48 @@ app.get("/gadgets/earphones/:id", function (req, res) {
     }
   });
 });
+
+app.get(
+  "/gadgets/earphones/:id/edit",
+  checkAuthentication,
+  function (req, res) {
+    Earphones.findById(req.params.id, function (err, foundEar) {
+      if (err) {
+        res.redirect("/gadgets/earphones");
+      } else {
+        res.render("earphone_edit", { ear: foundEar });
+      }
+    });
+  }
+);
+
+//update the earphone
+app.put("/gadgets/earphones/:id", checkAuthentication, function (req, res) {
+  Earphones.findByIdAndUpdate(
+    req.params.id,
+    req.body.ear,
+    function (err, udEarphone) {
+      if (err) {
+        res.redirect("/gadgets/earphones/" + req.params.id + "/edit");
+      } else {
+        res.redirect("/gadgets/earphones/" + req.params.id);
+      }
+    }
+  );
+});
+
+//deleting earphone
+
+app.delete("/gadgets/earphones/:id", checkAuthentication, function (req, res) {
+  Earphones.findByIdAndRemove(req.params.id, function (err) {
+    if (err) {
+      res.redirect("/gadgets/earphones/" + req.params.id);
+    } else {
+      res.redirect("/gadgets/earphones/");
+    }
+  });
+});
+
 //pre-built sections
 app.get("/preBuilt", function (req, res) {
   PreBuilt.find({}, function (err, allpreBuilt) {
@@ -410,7 +689,7 @@ app.get("/preBuilt", function (req, res) {
 
 //post sections
 
-app.post("/preBuilt", function (req, res) {
+app.post("/preBuilt", checkAuthentication, function (req, res) {
   PreBuilt.create(req.body.build, function (err, allBuilt) {
     if (err) {
       console.log(err);
@@ -423,17 +702,54 @@ app.post("/preBuilt", function (req, res) {
 });
 
 //new addings
-app.get("/preBuilt/new", function (req, res) {
+app.get("/preBuilt/new", checkAuthentication, function (req, res) {
   res.render("new_Built");
 });
 
-//redirecting to a specific mobile page
+//redirecting to a specific PreBuilt page
 app.get("/preBuilt/:id", function (req, res) {
   PreBuilt.findById(req.params.id, function (err, foundpreBuilt) {
     if (err) {
       console.log(err);
     } else {
       res.render("singlePreBuilt", { preBuilt: foundpreBuilt });
+    }
+  });
+});
+
+app.get("/preBuilt/:id/edit", checkAuthentication, function (req, res) {
+  PreBuilt.findById(req.params.id, function (err, foundBuilt) {
+    if (err) {
+      res.redirect("/preBuilt");
+    } else {
+      res.render("built_edit", { built: foundBuilt });
+    }
+  });
+});
+
+//update the preBuilt
+app.put("/preBuilt/:id", checkAuthentication, function (req, res) {
+  PreBuilt.findByIdAndUpdate(
+    req.params.id,
+    req.body.build,
+    function (err, udBuild) {
+      if (err) {
+        res.redirect("/preBuilt/" + req.params.id + "/edit");
+      } else {
+        res.redirect("/preBuilt/" + req.params.id);
+      }
+    }
+  );
+});
+
+//deleting preBuilt
+
+app.delete("/preBuilt/:id", checkAuthentication, function (req, res) {
+  PreBuilt.findByIdAndRemove(req.params.id, function (err) {
+    if (err) {
+      res.redirect("/preBuilt/" + req.params.id);
+    } else {
+      res.redirect("/preBuilt");
     }
   });
 });
@@ -465,12 +781,30 @@ app.get("/admin/login", function (req, res) {
   res.render("admin_login");
 });
 
+// //admin profile
+// app.get("/admin/:id/profile", checkAuthentication, function (req, res) {
+//   User.findById(req.params.id, function (err, foundUser) {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       res.render("profile");
+//     }
+//   });
+// });
+
+//handling admin profile
+// app.post("/admin/:id/profile",checkAuthentication,function(req,res){
+
+// });
+
 //Handling login logic
 app.post(
   "/admin/login",
   passport.authenticate("local", {
-    successRedirect: "/home",
-    failureRedirect: "/admin/login",
+    successRedirect: "/home", // redirect back to the previous page
+    failureRedirect: "back", // redirect back to the previous page
+    failureFlash: true,
+    successFlash: true,
     // successFlash: "Welcome!",
   }),
   function (req, res) {
@@ -484,8 +818,15 @@ function checkAuthentication(req, res, next) {
     //req.isAuthenticated() will return true if user is logged in
     next();
   } else {
-    res.redirect("/login");
+    res.redirect("/admin/login");
   }
 }
+
+//logout logic
+app.get("/logout", function (req, res) {
+  req.logout();
+  res.redirect("/home");
+});
+
 //server details
 app.listen(8080);

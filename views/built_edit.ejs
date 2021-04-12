@@ -1,0 +1,71 @@
+<%- include ('../partials/header')%>
+<h1 class="mt-5 d-flex justify-content-around">Add a new PC</h1>
+<div class="container">
+  <div class="row">
+    <div style="width: 50%; margin: 3% auto">
+      <form
+        class="jsutify-content-around"
+        method="post"
+        action="/preBuilt/<%=built._id%>?_method=Put"
+      >
+        <div class="form-group">
+          <input class="form-control" text" name="build[ModelName]"
+          value="<%=built.ModelName%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="build[Brief]"
+          value="<%=built.Brief%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="build[Description}"
+          value="<%=built.Description%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="build[Image]"
+          value="<%=built.Image%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="build[Price]"
+          value="<%=built.Price%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="build[Memory]"
+          value="<%=built.Memory%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="build[MotherBoard]"
+          value="<%=built.MotherBoard%>"/>
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="build[Connectivity]"
+          value="<%=built.Connectivity%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="build[Processor]"
+          value="<%=built.Processor%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="build[PSU]"
+          value="<%=built.PSU%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="build[Cabinet]"
+          value="<%=built.Cabinet%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="build[HardDisk]"
+          value="<%=built.HardDisk%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="build[GraphicCard]"
+          value="<%=built.GraphicCard%>" />
+        </div>
+
+        <button class="btn btn-block btn-lg btn-info">Submit</button>
+        <div class="form-group"></div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include ('../partials/footer')%>

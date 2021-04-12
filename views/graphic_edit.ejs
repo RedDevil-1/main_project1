@@ -1,0 +1,67 @@
+<%- include ('../partials/header')%>
+
+<h1 class="mt-5 d-flex justify-content-around">Add a new NEWS</h1>
+<div class="container">
+  <div class="row">
+    <div style="width: 50%; margin: 3% auto">
+      <form
+        class="jsutify-content-around"
+        method="post"
+        action="/gadgets/graphicCard/<%=graphic._id%>?_method=Put"
+      >
+        <div class="form-group">
+          <input class="form-control" text" name="graphic[ModelName]"
+          value="<%=graphic.ModelName%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="graphic[Brief]"
+          value="<%=graphic.Brief" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="graphic[Description]"
+          value="<%=graphic.Description%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="graphic[Image]"
+          value="<%=graphic.Image%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="graphic[LaunchedDate]"
+          value="<%=graphic.LaunchedDate%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="graphic[Price]"
+          value="<%=graphic.Price%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="graphic[GPUChip]"
+          value="<%=graphic.GPUChip%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="graphic[Bus]"
+          value="<%=graphic.Bus%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="graphic[Memory]"
+          value="<%=graphic.Memory%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="graphic[GPUClock]"
+          value="<%=graphic.GPUClock%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="graphic[MemoryClock]"
+          value="<%=graphic.MemoryClock%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="graphic[Shaders]"
+          value="<%=graphic.Shaders%>" />
+        </div>
+        <button class="btn btn-block btn-lg btn-info">Submit</button>
+        <div class="form-group"></div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include ('../partials/footer')%>

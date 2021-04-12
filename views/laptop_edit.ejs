@@ -1,0 +1,71 @@
+<%- include ('../partials/header')%>
+<link rel="stylesheet" type="text/css" href="news.css" />
+<link
+  href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+  rel="stylesheet"
+/>
+<h1 class="mt-5 d-flex justify-content-around">Add a new NEWS</h1>
+<div class="container">
+  <div class="row">
+    <div style="width: 50%; margin: 3% auto">
+      <form
+        class="jsutify-content-around"
+        method="post"
+        action="/gadgets/laptops/<%=laptop._id%>?_method=Put"
+      >
+        <div class="form-group">
+          <input class="form-control" text" name="laptop[ModelName]"
+          value="<%=laptop.ModelName%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="laptop[Brief]"
+          value="<%=laptop.Brief%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="laptop[Description]"
+          value="<%=laptop.Description%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="laptop[Image]"
+          value="<%=laptop.Image%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="laptop[LaunchedDate]"
+          value="<%=laptop.LaunchedDate%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="laptop[Price]"
+          value="<%=laptop.Price%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="laptop[CPU]"
+          value="<%=laptop.CPU%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="laptop[GPU]"
+          value="<%=laptop.GPU%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="laptop[RAM]"
+          value="<%=laptop.RAM%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="laptop[Display]"
+          value="<%=laptop.Display%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="laptop[Memory]"
+          value="<%=laptop.Memory%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="laptop[Camera]"
+          value="<%=laptop.Camera%>" />
+        </div>
+        <button class="btn btn-block btn-lg btn-info">Submit</button>
+        <div class="form-group"></div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include ('../partials/footer')%>

@@ -66,7 +66,20 @@
             <%=laptop.Description%>
             </td>
           </tr>
-        </table>
+          </table>
+          <%if(!currentUser){}else{%>
+            <div class="d-flex mt-4 align-items-start">
+                <a class="btn btn-sm btn-warning" href="/gadgets/laptops/<%=laptop._id%>/edit%>"
+                  >Update</a
+                >
+                <form action="/gadgets/laptops/<%=laptop._id%>?_method=DELETE" method="POST">
+                  <button class="btn btn-sm btn-danger" style="margin: 10px">
+                    Delete
+                  </button>
+              </form>
+              </div>
+            <%}%>
+        
       </div>
     </div>
     <div class="d-flex flex-row col-md-2 col-4 mr-0 pr-0">

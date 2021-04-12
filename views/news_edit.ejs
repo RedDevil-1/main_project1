@@ -1,0 +1,35 @@
+<%- include ('../partials/header')%>
+
+<h1 class="mt-5 d-flex justify-content-around">Edit <%=news.header%></h1>
+<div class="container">
+  <div class="row">
+    <div style="width: 50%; margin: 3% auto">
+      <form
+        class="jsutify-content-around"
+        method="POST"
+        action="/news/<%=news._id%>?_method=Put"
+      >
+        <div class="form-group">
+          <input class="form-control" text" name="news[header]"
+          value="<%=news.header%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="news[brief]"
+          value="<%=news.brief%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="news[description]"
+          value="<%=news.description%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="news[image]"
+          value="<%=news.image%>" />
+        </div>
+        <button class="btn btn-block btn-lg btn-info">Update</button>
+        <div class="form-group"></div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include ('../partials/footer')%>

@@ -1,0 +1,71 @@
+<%- include ('../partials/header')%>
+
+<h1 class="mt-5 d-flex justify-content-around">Add a new Processor</h1>
+<div class="container">
+  <div class="row">
+    <div style="width: 50%; margin: 3% auto">
+      <form
+        class="jsutify-content-around"
+        method="post"
+        action="/gadgets/processors/<%=processor._id%>?_method=Put"
+      >
+        <div class="form-group">
+          <input class="form-control" text" name="processor[ModelName]"
+          value="<%=processor.ModelName%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="processor[Brief]"
+          value="<%=processor.Brief%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="processor[Description]"
+          value="<%=processor.Description%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="processor[Image]"
+          value="<%=processor.Image%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="processor[LaunchedDate]"
+          value="<%=processor.LaunchedDate%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="processor[Price]"
+          value="<%=processor.Price%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="processor[ClockFrequency]"
+          value="<%=processor.ClockFrequency%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="processor[TurboFrequency]"
+          value="<%=processor.TurboFrequency%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="processor[PhysicalCores]"
+          value="<%=processor.PhysicalCores%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="processor[Threads]"
+          value="<%=processor.Threads%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="processor[Power]"
+          value="<%=processor.Power%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="processor[BitWidth]"
+          value="<%=processor.BitWidth%>" />
+        </div>
+        <div class="form-group">
+          <input class="form-control" text" name="processor[MaxMemory]"
+          value="<%=processor.MaxMemory%>" />
+        </div>
+        <button class="btn btn-block btn-lg btn-info">Submit</button>
+        <div class="form-group"></div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include ('../partials/footer')%>
