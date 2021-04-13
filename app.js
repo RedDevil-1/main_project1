@@ -17,7 +17,8 @@ var express = require("express"),
   PreBuilt = require("./JavaScriptFiles/preBuilt.js"),
   Gadget = require("./JavaScriptFiles/gadget.js"),
   MethodOverride = require("method-override"),
-  bodyParser = require("body-parser");
+  nodemailer = require("nodemailer");
+bodyParser = require("body-parser");
 
 //setting up engines
 app.set("views", "./views");
@@ -72,6 +73,92 @@ app.get("/index", function (req, res) {
 });
 
 //home page
+// app.get("/search", function (req, res) {
+//   SearchQuery = req.body.search;
+//   var fNews,
+//     fMobile,
+//     fEarphone,
+//     fHeadphone,
+//     fBuilt,
+//     fProcessor,
+//     fGraphic,
+//     fLaptop;
+
+//   News.find(
+//     {
+//       $text: {
+//         $description: SearchQuery,
+//       },
+//     },
+//     function (err, foundNews) {
+//       if (err) {
+//         console.log(err);
+//       } else {
+//         fNews = foundNews;
+//       }
+//     }
+//   );
+//   Processors.find(SearchQuery, function (err, foundProcessor) {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       fProcessor = foundProcessor;
+//     }
+//   });
+//   Mobiles.find(SearchQuery, function (err, foundMobile) {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       fMobile = foundMobile;
+//     }
+//   });
+//   PreBuilt.find(SearchQuery, function (err, foundBuilt) {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       fBuilt = foundBuilt;
+//     }
+//   });
+//   Laptops.find(SearchQuery, function (err, foundLaptop) {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       fLaptop = foundLaptop;
+//     }
+//   });
+//   Earphones.find(SearchQuery, function (err, foundEarphone) {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       fEarphone = foundEarphone;
+//     }
+//   });
+//   Headphones.find(SearchQuery, function (err, foundHeadphone) {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       fHeadphone = foundHeadphone;
+//     }
+//   });
+//   GraphicCards.find(SearchQuery, function (err, foundGraphic) {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       fGraphic = foundGraphic;
+//     }
+//   });
+
+//   res.render("search", {
+//     fMobile: fMobile,
+//     fProcessor: fProcessor,
+//     fBuilt: fBuilt,
+//     fLaptop: fLaptop,
+//     fNews: fNews,
+//     fHeadphone: fHeadphone,
+//     fEarphone: fEarphone,
+//     fGraphic: fGraphic,
+//   });
+// });
 
 app.get("/home", function (req, res) {
   News.find({}, function (err, allNews) {
@@ -82,6 +169,7 @@ app.get("/home", function (req, res) {
       //   if (err) {
       //     console.log(err);
       //   } else {
+      eval(require("error-stack-parser"));
       res.render("home", { news: allNews });
       //   } gadgets: allGadgets
       // });
@@ -97,10 +185,45 @@ app.get("/about", function (req, res) {
 
 //contact page
 
-app.get("/contact", function (req, res) {
-  res.render("contact");
+app.get("/contact1", function (req, res) {
+  res.render("contact1", { msg: "" });
 });
 
+//contact post
+app.post("/contact1", (req, res) => {
+  let transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false, // true for 587, false for other ports
+    requireTLS: true,
+    auth: {
+      user: "ishan20015.s@gmail.com",
+      pass: "itsmebitch",
+    },
+  });
+  var display =
+    "Hello this message is from " +
+    req.body.name +
+    ", you can revert back to " +
+    req.body.email +
+    " The message is: " +
+    req.body.message;
+  let mailOptions = {
+    from: "ishan20015.s@gmail.com",
+    to: "ishan2001.s@gmail.com",
+    subject: "Sending Email using Node.js",
+    text: display,
+  };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Email sent: " + info.response);
+    }
+  });
+  res.render("contact1", { msg: " Message sent" });
+});
 // news section
 
 //main news page
