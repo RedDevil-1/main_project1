@@ -1,92 +1,114 @@
-<%- include ('../partials/header')%>
+<html>
+  <head>
+    <!-- Adding scripts -->
 
-<link rel="stylesheet" type="text/css" href="/general.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+<!-- <link rel="stylesheet" type="text/css" href="/general.css" /> -->
+<link rel="stylesheet" href="/home.css">
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="/navbar.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <script
+      src="https://kit.fontawesome.com/2dee66e886.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/navbar.js"></script>
+    <script src="/searchBox.js"></script>
+  </head>
 
-<style>
-  * {
-    box-sizing: border-box
-  }
+  <!-- Adding a navBar -->
 
-  .mySlides1,
-  .mySlides2 {
-    display: none;
+  <nav class="nav1">
+
+    <a class="logo" href="/index">TTS</a>
+<div class="hide">
+ <div class="item1">
+     <a class="nav-subItem"href="#">Home</a>
+ </div> 
+ <div class="item2">
+      <a class="nav-subItem"href="/about">About</a>
+ </div>
+ <div class="item3">
+      <a class="nav-subItem"href="/contact1">Contact</a>
+ </div>
+ <form class="loginSignup itemEnd1 my-2 my-lg-0">
+        <% if(!currentUser){%>
+          <div class="itemEnd3 ">
+         <a class=" btn-pink" href="/admin/login">
+            Login<i class="fas fa-user-plus"></i>
+          </a>
+        </div>
+        <% } else {%>
+          <div class="itemEnd2">
+       <a class=" btn-pink" href="#">
+          
+            <%=currentUser.username%>
+            <i class="fas fa-user"></i></a>
+          </div>
+            <div class="itemEnd3">  
+        <a class= " btn-pink" href="/logout">
+          Logout<i class="fas fa-user-times"></i>
+        </a>
+        </div>
+        <%}%>
+ </form>
+  </div>
+  <div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+    <a class="btn-pink" hreaf="#">Home</a>
+    <a class="btn-pink" href="/about">About</a>
+    <a class="btn-pink" href="/contact1">Contact</a>
+    <% if(!currentUser){%>
+     
+     <a class="btn-pink" href="/admin/login">
+        Login<i class="fas fa-user-plus"></i>
+      </a>
+
+    <% } else {%>
     
-  }
-
-  img {
-    vertical-align: centre;
-  }
-
-
-  /* Slideshow container */
-  .slideshow-container {
-    max-width: 1000px;
-    position: relative;
-    margin: auto;
-  }
-
-  /* Next & previous buttons */
-  .prev{
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    left:0;
-    width: 5px;
-    padding: 12px;
-    margin-top: -22px;
-    color: white;
-    font-weight: bold;
-    font-size: 20px;
-    transition: 0.7s ease;
-    border-radius: 10px 3px 3px 10px;
+   <a class=" btn-pink" href="#">
+      
+        <%=currentUser.username%>
+        <i class="fas fa-user"></i></a>
     
-    user-select: none;
-    background-color: black;
+       
+    <a class= " btn-pink" href="/logout">
+      Logout<i class="fas fa-user-times"></i>
+    </a>
 
-  }
-  .next {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    width: 5px;
-    padding: 12px;
-    margin-top: -22px;
-    color: white;
-    font-weight: bold;
-    font-size: 20px;
-    transition: 0.7s ease;
-    right: 0;
-    border-radius: 5px 10px 10px 5px;
-    user-select: none;
-    background-color: black;
-  }
-
+    <%}%>
+  </div>
   
-  /* On hover, add a grey background color */
-  .prev:hover,
-  .next:hover {
-    background-color: #f1f1f1;
-    color: black;
-  }
-  p{
-    font-weight: bold;
-    font-size: large;
-    text-align: center;
-  }
-</style>
+  <div id="main">
+    <button class="openbtn" onclick="openNav()">☰ </button>  
+  </div>
+  </nav>
 
-<div class="container bg-light" id="jumboMargin">
-  <div class="container text-center pt-0">
+
+<body>
+  <div class="container  animate__animated animate__backInLeft pt-0" style="text-align:center;background-color: #f64c72;" id="jumboMargin">
     <h1 class="display-3">TECH FOR YOU</h1>
     <p class="lead">Welcome to the world of technology.</p>
     <p>A place to keep yourself updated.</p>
   </div>
-</div>
-<div class="d-flex mx-3">
+
+<div class="d-flex animate__animated animate__bounce mx-3">
   <div class="col-left flex-column">
-    <a class="btn btn-info" href="news">NEWS</a>
-    <a class="btn btn-info" href="preBuilt">PRE-BUILT PC</a>
-    <a class="btn btn-info" href="gadgets">GADGETS</a>
+    <a class="btn " href="news">NEWS</a>
+    <a class="btn " href="preBuilt">PRE-BUILT PC</a>
+    <a class="btn " href="gadgets">GADGETS</a>
   </div>
   <div class="row">
     <div class="slideshow-container">
@@ -99,17 +121,18 @@
               <h4 style="text-align: center;">
                <%=newsAll.header%>
                 </h4>
+               
               </td>      
             </tr>
             <tr>
-             <td >
+             <td  >
             <img src="<%=newsAll.image%>" style="width:100%; height:300px" >
 <!-- <img src="" style="width: 600px; height: 400px;"> -->
 </td>     
 
-  <td><p>
+  <td class="d-flex flex-column mt-5 align-items-center"><p>
     <%=newsAll.brief%>
-  </p>
+  </p> <a class="btn btn-info btn-sm" href="/news/<%=newsAll._id%>">Check Out</a>
   </td>
 </tr>
           
@@ -123,24 +146,26 @@
       </div>
 
       <div class="slideshow-container">
+        <% builts.forEach(function(built){%>
         <div class="mySlides2">
-          <div class="card bg-dark text-light">
+          <div class="card bg-dark align-items-center text-light">
             <img
+            style="width:100%; height:300px"
               class="card-img-top"
-              src=".../100px180/"
+              src="<%=built.Image%>"
               alt="Card image cap"
             />
             <div class="card-body">
-              <h5 class="card-title">Card title</h5>
+              <h5 class="card-title"><%=built.ModelName%> </h5>
               <p class="card-text">
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
+               <%=built.Price%>
               </p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
+              <a href="/preBuilt/<%=built._id%>" class="btn btn-primary">Go to Built</a>
             </div>
           </div>
+       
         </div>
-
+        <%})%>
         <a class="prev" onclick="plusSlides(-1, 1)">&#10094;</a>
         <a class="next" onclick="plusSlides(1, 1)">&#10095;</a>
       </div>

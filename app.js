@@ -25,7 +25,10 @@ app.set("views", "./views");
 app.set("view engine", "ejs");
 
 // connecting to MongoDB
-mongoose.connect("mongodb://localhost/news_update", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost/news_update", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 //including various files
 app.use(
@@ -165,14 +168,14 @@ app.get("/home", function (req, res) {
     if (err) {
       console.log(err);
     } else {
-      // Gadgets.find({}, function (err, allGadgets) {
-      //   if (err) {
-      //     console.log(err);
-      //   } else {
-      eval(require("error-stack-parser"));
-      res.render("home", { news: allNews });
-      //   } gadgets: allGadgets
-      // });
+      PreBuilt.find({}, function (err, allBuilts) {
+        if (err) {
+          console.log(err);
+        } else {
+          eval(require("error-stack-parser"));
+          res.render("home", { news: allNews, builts: allBuilts });
+        }
+      });
     }
   });
 });
@@ -198,7 +201,7 @@ app.post("/contact1", (req, res) => {
     requireTLS: true,
     auth: {
       user: "ishan20015.s@gmail.com",
-      pass: "itsmebitch",
+      pass: "",
     },
   });
   var display =
@@ -878,12 +881,12 @@ app.delete("/preBuilt/:id", checkAuthentication, function (req, res) {
 });
 
 //admin panel
-app.get("/admin/signup", function (req, res) {
+app.get("/admin/signup", checkAuthentication, function (req, res) {
   res.render("admin_signup");
 });
 
 //admin signup handle
-app.post("/admin/signup", function (req, res) {
+app.post("/admin/signup", checkAuthentication, function (req, res) {
   User.register(
     new User({ username: req.body.email }),
     req.body.password,

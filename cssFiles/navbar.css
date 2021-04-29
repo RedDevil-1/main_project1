@@ -1,0 +1,222 @@
+.changeColor {
+  transition: 500ms;
+  background: transparent;
+}
+.changeColor.scrolled {
+  background: black;
+}
+.navbar-light {
+  transition: 400ms;
+}
+/* login and logout */
+
+.loginSignup {
+  margin: 0%;
+  margin-top: 1%;
+  align-content: center;
+  padding: 0%;
+  background: transparent;
+  display: grid;
+  justify-content: end;
+  grid-template-columns: 3fr 1fr;
+}
+
+.itemEnd2 {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  justify-content: end;
+  text-align: end;
+  align-content: center;
+  margin-right: 5%;
+  padding: 0%;
+}
+.itemEnd3 {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  justify-content: end;
+  text-align: right;
+  margin: 0;
+  margin-right: 5%;
+  padding: 0%;
+}
+.itemEnd1 {
+  grid-column-start: 5;
+  grid-column-end: 6;
+  justify-content: end;
+  align-content: center;
+  margin: 0;
+  padding: 0%;
+}
+/* link decoration */
+.btn-pink {
+  padding-left: 0;
+  font-size: calc(12px + 0.6vw);
+  color: white;
+}
+.btn-pink:visited {
+  color: white;
+}
+/* starting links */
+.nav1 {
+  margin: 0%;
+  margin-top: 1%;
+  align-content: center;
+  padding: 0%;
+  background: transparent;
+  display: grid;
+  grid-template-columns: 1fr 12fr;
+}
+.hide {
+  margin: 0%;
+  align-content: center;
+  padding: 0%;
+  background: transparent;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 5fr 4fr;
+}
+
+.logo {
+  font-size: 25px;
+  background: transparent;
+  color: black;
+  margin-right: 40%;
+  font-weight: 500;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+.item1 {
+  grid-column-start: 1;
+  grid-column-end: 2;
+}
+.item2 {
+  grid-column-start: 2;
+  grid-column-end: 3;
+}
+.item3 {
+  grid-column-start: 3;
+  grid-column-end: 4;
+}
+/* link decoration */
+.nav-subItem {
+  font-family: "Courier New", Courier, monospace, Times, serif;
+  margin-left: 10%;
+  color: black;
+  font-size: calc(12px + 0.8vw);
+  font-weight: 600;
+}
+/* common  */
+ul li a:hover {
+  background-color: white;
+  font-size: large;
+  color: aqua;
+}
+
+nav a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+nav a:visited {
+  color: inherit;
+}
+.btn-pink:hover {
+  color: #f1f1f1;
+}
+nav div a:hover {
+  background-color: black;
+  color: #fff;
+  border-radius: 8px;
+}
+
+/* drop down menu */
+#mySideBar,
+#main {
+  display: none;
+}
+
+@media screen and (max-width: 960px) {
+  nav .hide {
+    display: none;
+  }
+  #mySideBar,
+  #main {
+    display: inline-block;
+  }
+}
+
+.sidebar {
+  height: 100%; /* 100% Full-height */
+  width: 0; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 0;
+  right: 0;
+  background-color: rgb(66, 58, 58); /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 60px; /* Place content 60px from the top */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
+  max-width: 968px;
+  min-width: 0px;
+}
+
+/* The sidebar links */
+.sidebar a {
+  text-align: center;
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #ffffff;
+  display: block;
+  transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidebar a:hover {
+  color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin: 0px;
+  padding: 5px 10px;
+}
+
+/* The button used to open the sidebar */
+.openbtn {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #111;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  transition: display 2s;
+}
+
+.openbtn:hover {
+  background-color: #444;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+  transition: margin-left 0.5s; /* If you want a transition effect */
+  padding: 20px;
+  transition: display 2s;
+  left: 0;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidebar {
+    padding-top: 15px;
+  }
+  .sidebar a {
+    font-size: 18px;
+  }
+}

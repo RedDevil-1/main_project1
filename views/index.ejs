@@ -6,13 +6,14 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 <script src="https://kit.fontawesome.com/2dee66e886.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     </head>
    
     <body>
       
       
 <nav class="navbar navbar-expand-lg navbar-dark" style="background: transparent;">
-  <a class="navbar-brand" href="index">TTS</a>
+  <a class="navbar-brand" href="/index">TTS</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -20,21 +21,33 @@
   <div class="collapse navbar-collapse" style="font-size:large" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item ">
-        <a class="nav-link" href="home">Home</a>
+        <a class="nav-link" href="/home">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="about">About</a>
+        <a class="nav-link" href="/about">About</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="contact">Contact</a>
+        <a class="nav-link" href="/contact1">Contact</a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
-      <a class="btn-outline-light bg-dark rounded-lg btn-sm" href="/admin/login" type="submit" id="Login">Login<i class="fas fa-user"></i></a>
+      <% if(!currentUser){%>
+      <a class="btn-outline-light bg-dark rounded-lg btn-sm" href="/admin/login">
+        Login<i class="fas fa-user-plus"></i>
+      </a>
+      <% } else {%>
+        <a class="btn-outline-light bg-dark rounded-lg btn-sm" href="#">
+        
+          <%=currentUser.username%>
+          <i class="fas fa-user"></i></i>
+      <a class="btn-outline-light bg-dark rounded-lg btn-sm" href="/logout">
+        Logout<i class="fas fa-user-times"></i>
+      </a>
+      <%}%>
     </form>
   </div>
 </nav>
-<div class="container" >
+<div class="container animate__animated animate__backInDown" >
     <div class="row">
         <div class="col-md-12">
             <div style="text-align: center; padding-top: 20%;">

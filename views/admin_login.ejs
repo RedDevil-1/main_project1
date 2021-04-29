@@ -1,7 +1,24 @@
-<%- include ('../partials/header')%>
-<form style="margin-top: 8%" action="/admin/login" method="POST">
-  <input type="text" name="email" placeholder="email" />
-  <input type="password" name="password" placeholder="Password" />
-  <input type="submit" value="Login" />
-</form>
+<%- include ('../partials/header')%> <%- include ('../partials/header')%>
+<style>
+  .container {
+    margin-top: 8%;
+    text-align: center;
+  }
+  h1 {
+    font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+    font-size: 3vw;
+  }
+  input {
+    border-radius: 10px;
+    font-size: large;
+  }
+</style>
+<div class="container">
+  <form action="/admin/login" method="POST">
+    <h1>Login</h1>
+    <input type="text" name="email" placeholder="email" /><br />
+    <input type="password" name="password" placeholder="Password" /><br />
+    <input type="submit" value="Login" />
+  </form>
+</div>
 <%- include ('../partials/footer')%>

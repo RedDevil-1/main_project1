@@ -17,18 +17,18 @@
   border-collapse: collapse;
 }
 </style>
-<div id="container">
-  <div class="jumbotron text-center" style="border-radius: 35px">
+<div id="container" class="animate__animated animate__backInLeft">
+  <div class="jumbotron text-center" style="background-color: #282c35; color: beige; border-radius: 35px">
     <h1>Welcome to the processor Section</h1>
   </div>
 </div>
 <div class="ml-4 mr-0" style="margin-top: 10px">
   <div class="d-flex pr-0">
     <div class="row col-md-10 col-8 justify-content-around  p-0">
-      <img src="<%=processor.Image%>" style="height:600px;"class="row col-md-3 col-12 bg-info p-0"></img>
+      <img src="<%=processor.Image%>" style="height:350px;"class="row animate__animated animate__flipInY col-md-3 col-12 bg-info p-0"></img>
 
       <div class="row col-md-8 col-12">
-        <table>
+        <table class="animate__animated animate__flipInX ">
           <tr>
             <th><h2>Specs</h2></th>
             <th><h2>Details</h2></th>
@@ -85,7 +85,7 @@
                   >Update</a
                 >
                 <form action="/gadgets/processors/<%=processor._id%>?_method=DELETE" method="POST">
-                  <button class="btn btn-sm btn-danger" style="margin: 10px">
+                  <button class="btn btn-sm btn-danger" >
                     Delete
                   </button>
                 </form>
@@ -94,7 +94,7 @@
       
       </div>
     </div>
-    <div class="d-flex flex-row col-md-2 col-4 mr-0 pr-0">
+    <!-- <div class="d-flex flex-row col-md-2 col-4 mr-0 pr-0">
       <div class="container">
         <form class="searchbar">
           <input
@@ -111,7 +111,7 @@
           ></span>
         </form>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
 

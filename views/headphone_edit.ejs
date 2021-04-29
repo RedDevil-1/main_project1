@@ -1,52 +1,52 @@
 <%- include ('../partials/header')%>
-<h1 class="mt-5 d-flex justify-content-around">Add a new Headphone</h1>
+<h1 class="mt-5 d-flex justify-content-around">Edit Headphone</h1>
 <div class="container">
   <div class="row">
     <div style="width: 50%; margin: 3% auto">
       <form
         class="jsutify-content-around"
         method="post"
-        action="/gadgets/headphones/<%=head._id%>?_method=Put"
+        action="/gadgets/headphones/<%=headp._id%>?_method=Put"
       >
         <div class="form-group">
           <input class="form-control" text" name="headp[ModelName]"
-          value="<%=head.ModelName%>" />
+          value="<%=headp.ModelName%>" />
         </div>
         <div class="form-group">
           <input class="form-control" text" name="headp[Brief]"
-          value="<%=head.Brief%>" />
+          value="<%=headp.Brief%>" />
         </div>
         <div class="form-group">
           <input class="form-control" text" name="headp[Description]"
-          value="<%=head.Description%>" />
+          value="<%=headp.Description%>" />
         </div>
         <div class="form-group">
           <input class="form-control" text" name="headp[Image]"
-          value="<%=head.Image%>" />
+          value="<%=headp.Image%>" />
         </div>
         <div class="form-group">
           <input class="form-control" text" name="headp[HeadphoneType]"
-          value="<%=head.HeadphoneType%>"/>
+          value="<%=headp.HeadphoneType%>"/>
         </div>
         <div class="form-group">
           <input class="form-control" text" name="headp[Price]"
-          value="<%=head.Price%>" />
+          value="<%=headp.Price%>" />
         </div>
         <div class="form-group">
           <input class="form-control" text" name="headp[Mic]"
-          value="<%=head.Mic%>" />
+          value="<%=headp.Mic%>" />
         </div>
         <div class="form-group">
           <input class="form-control" text" name="headp[ConnectorType]"
-          value="<%=head.ConnectorType%>"/>
+          value="<%=headp.ConnectorType%>"/>
         </div>
         <div class="form-group">
           <input class="form-control" text" name="headp[Connectivity]"
-          value="<%=head.Connectivity%>" />
+          value="<%=headp.Connectivity%>" />
         </div>
         <div class="form-group">
           <input class="form-control" text" name="headp[BatteryCapacity]"
-          value="<%=head.BatteryCapacity%>" />
+          value="<%=headp.BatteryCapacity%>" />
         </div>
         <button class="btn btn-block btn-lg btn-info">Submit</button>
         <div class="form-group"></div>

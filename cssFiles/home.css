@@ -1,0 +1,80 @@
+body {
+  background-image: conic-gradient(
+    rgb(136, 96, 208),
+    rgb(132, 205, 235),
+    rgb(192, 200, 227)
+  );
+}
+* {
+  box-sizing: border-box;
+}
+
+.mySlides1,
+.mySlides2 {
+  display: none;
+}
+
+img {
+  vertical-align: centre;
+}
+
+.btn:hover {
+  color: #f1f1f1;
+}
+
+#btn {
+  background-color: #c38d9e;
+}
+/* Slideshow container */
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+}
+
+/* Next & previous buttons */
+.prev {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 5px;
+  padding: 12px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  transition: 0.7s ease;
+  border-radius: 10px 3px 3px 10px;
+
+  user-select: none;
+  background-color: black;
+}
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: 5px;
+  padding: 12px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  transition: 0.7s ease;
+  right: 0;
+  border-radius: 5px 10px 10px 5px;
+  user-select: none;
+  background-color: black;
+}
+
+/* On hover, add a grey background color */
+.prev:hover,
+.next:hover {
+  background-color: #f1f1f1;
+  color: black;
+}
+p {
+  font-weight: bold;
+  font-size: large;
+  text-align: center;
+}
