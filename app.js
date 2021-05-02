@@ -16,9 +16,12 @@ var express = require("express"),
   Earphones = require("./JavaScriptFiles/earphone.js"),
   PreBuilt = require("./JavaScriptFiles/preBuilt.js"),
   Gadget = require("./JavaScriptFiles/gadget.js"),
+  GadgetSchema = require("./JavaScriptFiles/gadget").schema,
   MethodOverride = require("method-override"),
   nodemailer = require("nodemailer");
 bodyParser = require("body-parser");
+
+var random = require("mongoose-simple-random");
 
 //setting up engines
 app.set("views", "./views");
@@ -51,8 +54,7 @@ passport.use(
     User.authenticate()
   )
 );
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(express.static("views"));
 app.use(express.static(path.join(__dirname, "news")));
 app.use(express.static(path.join(__dirname, "cssFiles")));
@@ -75,94 +77,6 @@ app.get("/index", function (req, res) {
   res.render("index");
 });
 
-//home page
-// app.get("/search", function (req, res) {
-//   SearchQuery = req.body.search;
-//   var fNews,
-//     fMobile,
-//     fEarphone,
-//     fHeadphone,
-//     fBuilt,
-//     fProcessor,
-//     fGraphic,
-//     fLaptop;
-
-//   News.find(
-//     {
-//       $text: {
-//         $description: SearchQuery,
-//       },
-//     },
-//     function (err, foundNews) {
-//       if (err) {
-//         console.log(err);
-//       } else {
-//         fNews = foundNews;
-//       }
-//     }
-//   );
-//   Processors.find(SearchQuery, function (err, foundProcessor) {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       fProcessor = foundProcessor;
-//     }
-//   });
-//   Mobiles.find(SearchQuery, function (err, foundMobile) {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       fMobile = foundMobile;
-//     }
-//   });
-//   PreBuilt.find(SearchQuery, function (err, foundBuilt) {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       fBuilt = foundBuilt;
-//     }
-//   });
-//   Laptops.find(SearchQuery, function (err, foundLaptop) {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       fLaptop = foundLaptop;
-//     }
-//   });
-//   Earphones.find(SearchQuery, function (err, foundEarphone) {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       fEarphone = foundEarphone;
-//     }
-//   });
-//   Headphones.find(SearchQuery, function (err, foundHeadphone) {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       fHeadphone = foundHeadphone;
-//     }
-//   });
-//   GraphicCards.find(SearchQuery, function (err, foundGraphic) {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       fGraphic = foundGraphic;
-//     }
-//   });
-
-//   res.render("search", {
-//     fMobile: fMobile,
-//     fProcessor: fProcessor,
-//     fBuilt: fBuilt,
-//     fLaptop: fLaptop,
-//     fNews: fNews,
-//     fHeadphone: fHeadphone,
-//     fEarphone: fEarphone,
-//     fGraphic: fGraphic,
-//   });
-// });
-
 app.get("/home", function (req, res) {
   News.find({}, function (err, allNews) {
     if (err) {
@@ -172,8 +86,20 @@ app.get("/home", function (req, res) {
         if (err) {
           console.log(err);
         } else {
-          eval(require("error-stack-parser"));
-          res.render("home", { news: allNews, builts: allBuilts });
+          Gadget.findRandom({}, {}, { limit: 5 }, function (err, allGadgets) {
+            if (err) {
+              console.log("something went wrong");
+              console.log(err);
+            } else {
+              console.log(allGadgets);
+              eval(require("error-stack-parser"));
+              res.render("home", {
+                news: allNews,
+                builts: allBuilts,
+                gadgets: allGadgets,
+              });
+            }
+          });
         }
       });
     }
@@ -200,7 +126,7 @@ app.post("/contact1", (req, res) => {
     secure: false, // true for 587, false for other ports
     requireTLS: true,
     auth: {
-      user: "ishan20015.s@gmail.com",
+      user: "",
       pass: "",
     },
   });
@@ -306,12 +232,21 @@ app.delete("/news/:id", checkAuthentication, function (req, res) {
 app.get("/Gadgets", function (req, res) {
   res.render("gadgets");
 });
+app.get("/allgadgets", function (req, res) {
+  Gadget.find({}, function (err, allgadget) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("allGadgets", { gadgets: allgadget });
+    }
+  });
+});
 
 //processor section
 
 //main processor page
 app.get("/gadgets/processors", function (req, res) {
-  Processors.find({}, function (err, allProcessors) {
+  Gadget.find({ ItemType: "processor" }, function (err, allProcessors) {
     if (err) {
       console.log(err);
     } else {
@@ -322,7 +257,7 @@ app.get("/gadgets/processors", function (req, res) {
 
 //post request
 app.post("/gadgets/processors", checkAuthentication, function (req, res) {
-  Processors.create(req.body.processor, function (err, addProcessor) {
+  Gadget.create(req.body.processor, function (err, addProcessor) {
     if (err) {
       console.log(err);
     } else {
@@ -340,7 +275,7 @@ app.get("/gadgets/processors/new", checkAuthentication, function (req, res) {
 
 //redirecting to a specific processor page
 app.get("/gadgets/processors/:id", function (req, res) {
-  Processors.findById(req.params.id, function (err, foundProcessor) {
+  Gadget.findById(req.params.id, function (err, foundProcessor) {
     if (err) {
       console.log(err);
     } else {
@@ -353,7 +288,7 @@ app.get(
   "/gadgets/processors/:id/edit",
   checkAuthentication,
   function (req, res) {
-    Processors.findById(req.params.id, function (err, foundProcessor) {
+    Gadget.findById(req.params.id, function (err, foundProcessor) {
       if (err) {
         res.redirect("/gadgets/processors");
       } else {
@@ -365,7 +300,7 @@ app.get(
 
 //update the processor
 app.put("/gadgets/processors/:id", checkAuthentication, function (req, res) {
-  Processors.findByIdAndUpdate(
+  Gadget.findByIdAndUpdate(
     req.params.id,
     req.body.processor,
     function (err, udProcessor) {
@@ -381,7 +316,7 @@ app.put("/gadgets/processors/:id", checkAuthentication, function (req, res) {
 //deleting Processor
 
 app.delete("/gadgets/processors/:id", checkAuthentication, function (req, res) {
-  Processors.findByIdAndRemove(req.params.id, function (err) {
+  Gadget.findByIdAndRemove(req.params.id, function (err) {
     if (err) {
       res.redirect("/gadgets/processors/" + req.params.id);
     } else {
@@ -393,7 +328,7 @@ app.delete("/gadgets/processors/:id", checkAuthentication, function (req, res) {
 
 //main render page
 app.get("/gadgets/graphicCard", function (req, res) {
-  GraphicCards.find({}, function (err, allGraphic) {
+  Gadget.find({ ItemType: "graphic card" }, function (err, allGraphic) {
     if (err) {
       console.log(err);
     } else {
@@ -404,7 +339,7 @@ app.get("/gadgets/graphicCard", function (req, res) {
 
 //post request
 app.post("/gadgets/graphicCard", checkAuthentication, function (req, res) {
-  GraphicCards.create(req.body.graphic, function (err, addGraphic) {
+  Gadget.create(req.body.graphic, function (err, addGraphic) {
     if (err) {
       console.log(err);
     } else {
@@ -422,7 +357,7 @@ app.get("/gadgets/graphicCard/new", checkAuthentication, function (req, res) {
 
 //redirecting to a specific graphic page
 app.get("/gadgets/graphicCard/:id", function (req, res) {
-  GraphicCards.findById(req.params.id, function (err, foundCard) {
+  Gadget.findById(req.params.id, function (err, foundCard) {
     if (err) {
       console.log(err);
     } else {
@@ -435,7 +370,7 @@ app.get(
   "/gadgets/graphicCard/:id/edit",
   checkAuthentication,
   function (req, res) {
-    GraphicCards.findById(req.params.id, function (err, foundGraphic) {
+    Gadget.findById(req.params.id, function (err, foundGraphic) {
       if (err) {
         res.redirect("/gadgets/graphicCard");
       } else {
@@ -447,7 +382,7 @@ app.get(
 
 //update the GraphicCard
 app.put("/gadgets/graphicCard/:id", checkAuthentication, function (req, res) {
-  GraphicCards.findByIdAndUpdate(
+  Gadget.findByIdAndUpdate(
     req.params.id,
     req.body.graphic,
     function (err, udGraphic) {
@@ -465,7 +400,7 @@ app.delete(
   "/gadgets/graphicCard/:id",
   checkAuthentication,
   function (req, res) {
-    GraphicCards.findByIdAndRemove(req.params.id, function (err) {
+    Gadget.findByIdAndRemove(req.params.id, function (err) {
       if (err) {
         res.redirect("/gadgets/graphicCard/" + req.params.id);
       } else {
@@ -479,7 +414,7 @@ app.delete(
 
 //main page
 app.get("/gadgets/laptops", function (req, res) {
-  Laptops.find({}, function (err, allLaptops) {
+  Gadget.find({ ItemType: "laptop" }, function (err, allLaptops) {
     if (err) {
       console.log(err);
     } else {
@@ -490,7 +425,7 @@ app.get("/gadgets/laptops", function (req, res) {
 
 //post request
 app.post("/gadgets/laptops", checkAuthentication, function (req, res) {
-  Laptops.create(req.body.laptop, function (err, addLaptop) {
+  Gadget.create(req.body.laptop, function (err, addLaptop) {
     if (err) {
       console.log(err);
     } else {
@@ -510,7 +445,7 @@ app.get("/gadgets/laptops/new", checkAuthentication, function (req, res) {
 
 //redirecting to a specific laptop page
 app.get("/gadgets/laptops/:id", function (req, res) {
-  Laptops.findById(req.params.id, function (err, foundLaptop) {
+  Gadget.findById(req.params.id, function (err, foundLaptop) {
     if (err) {
       console.log(err);
     } else {
@@ -520,7 +455,7 @@ app.get("/gadgets/laptops/:id", function (req, res) {
 });
 
 app.get("/gadgets/laptops/:id/edit", checkAuthentication, function (req, res) {
-  Laptops.findById(req.params.id, function (err, foundLaptop) {
+  Gadget.findById(req.params.id, function (err, foundLaptop) {
     if (err) {
       res.redirect("/gadgets/laptops");
     } else {
@@ -531,7 +466,7 @@ app.get("/gadgets/laptops/:id/edit", checkAuthentication, function (req, res) {
 
 //update the laptop
 app.put("/gadgets/laptops/:id", checkAuthentication, function (req, res) {
-  Laptops.findByIdAndUpdate(
+  Gadget.findByIdAndUpdate(
     req.params.id,
     req.body.laptop,
     function (err, udLaptop) {
@@ -547,7 +482,7 @@ app.put("/gadgets/laptops/:id", checkAuthentication, function (req, res) {
 //deleting laptops
 
 app.delete("/gadgets/laptops/:id", checkAuthentication, function (req, res) {
-  Laptops.findByIdAndRemove(req.params.id, function (err) {
+  Gadget.findByIdAndRemove(req.params.id, function (err) {
     if (err) {
       res.redirect("/gadgets/laptops/" + req.params.id);
     } else {
@@ -559,7 +494,7 @@ app.delete("/gadgets/laptops/:id", checkAuthentication, function (req, res) {
 
 //main render page
 app.get("/gadgets/mobiles", function (req, res) {
-  Mobiles.find({}, function (err, allMobiles) {
+  Gadget.find({ ItemType: "mobile" }, function (err, allMobiles) {
     if (err) {
       console.log(err);
     } else {
@@ -570,12 +505,17 @@ app.get("/gadgets/mobiles", function (req, res) {
 
 //post request
 app.post("/gadgets/mobiles", checkAuthentication, function (req, res) {
-  Mobiles.create(req.body.mobile, function (err, addMobile) {
+  Gadget.create(req.body.mobile, function (err, addMobile) {
     if (err) {
       console.log(err);
     } else {
       console.log("mobile added successfully");
       console.log(addMobile);
+
+      // const mobile1=new Gadget({mobiles:[addMobile]});
+      // mobile1.save(function(err){
+      //   console.log(err)
+      // });
       // Gadget.mobiles.push(addMobile);
       // Gadget.save();
       res.redirect("mobiles");
@@ -590,7 +530,7 @@ app.get("/gadgets/mobiles/new", checkAuthentication, function (req, res) {
 
 //redirecting to a specific mobile page
 app.get("/gadgets/mobiles/:id", function (req, res) {
-  Mobiles.findById(req.params.id, function (err, foundMobile) {
+  Gadget.findById(req.params.id, function (err, foundMobile) {
     if (err) {
       console.log(err);
     } else {
@@ -600,7 +540,7 @@ app.get("/gadgets/mobiles/:id", function (req, res) {
 });
 
 app.get("/gadgets/mobiles/:id/edit", checkAuthentication, function (req, res) {
-  Mobiles.findById(req.params.id, function (err, foundMobile) {
+  Gadget.findById(req.params.id, function (err, foundMobile) {
     if (err) {
       res.redirect("/gadgets/mobiles");
     } else {
@@ -611,7 +551,7 @@ app.get("/gadgets/mobiles/:id/edit", checkAuthentication, function (req, res) {
 
 //update the Mobile
 app.put("/gadgets/mobiles/:id", checkAuthentication, function (req, res) {
-  Mobiles.findByIdAndUpdate(
+  Gadget.findByIdAndUpdate(
     req.params.id,
     req.body.mobile,
     function (err, udMobile) {
@@ -627,7 +567,7 @@ app.put("/gadgets/mobiles/:id", checkAuthentication, function (req, res) {
 //deleting mobile
 
 app.delete("/gadgets/mobiles/:id", checkAuthentication, function (req, res) {
-  Mobiles.findByIdAndRemove(req.params.id, function (err) {
+  Gadget.findByIdAndRemove(req.params.id, function (err) {
     if (err) {
       res.redirect("/gadgets/mobiles/" + req.params.id);
     } else {
@@ -640,7 +580,7 @@ app.delete("/gadgets/mobiles/:id", checkAuthentication, function (req, res) {
 
 //main render page
 app.get("/gadgets/headphones", function (req, res) {
-  Headphones.find({}, function (err, allHeadphones) {
+  Gadget.find({ ItemType: "headphone" }, function (err, allHeadphones) {
     if (err) {
       console.log(err);
     } else {
@@ -651,7 +591,7 @@ app.get("/gadgets/headphones", function (req, res) {
 
 //post request
 app.post("/gadgets/headphones", checkAuthentication, function (req, res) {
-  Headphones.create(req.body.headp, function (err, addHeadphone) {
+  Gadget.create(req.body.headp, function (err, addHeadphone) {
     if (err) {
       console.log(err);
     } else {
@@ -669,7 +609,7 @@ app.get("/gadgets/headphones/new", checkAuthentication, function (req, res) {
 
 //redirecting to a specific mobile page
 app.get("/gadgets/headphones/:id", function (req, res) {
-  Headphones.findById(req.params.id, function (err, foundHeadphone) {
+  Gadget.findById(req.params.id, function (err, foundHeadphone) {
     if (err) {
       console.log(err);
     } else {
@@ -682,7 +622,7 @@ app.get(
   "/gadgets/headphones/:id/edit",
   checkAuthentication,
   function (req, res) {
-    Headphones.findById(req.params.id, function (err, foundHead) {
+    Gadget.findById(req.params.id, function (err, foundHead) {
       if (err) {
         res.redirect("/gadgets/headphones");
       } else {
@@ -694,7 +634,7 @@ app.get(
 
 //update the Headphone
 app.put("/gadgets/headphones/:id", checkAuthentication, function (req, res) {
-  Headphones.findByIdAndUpdate(
+  Gadget.findByIdAndUpdate(
     req.params.id,
     req.body.headp,
     function (err, udHead) {
@@ -710,7 +650,7 @@ app.put("/gadgets/headphones/:id", checkAuthentication, function (req, res) {
 //deleting Headphone
 
 app.delete("/gadgets/headphones/:id", checkAuthentication, function (req, res) {
-  Headphones.findByIdAndRemove(req.params.id, function (err) {
+  Gadget.findByIdAndRemove(req.params.id, function (err) {
     if (err) {
       res.redirect("/gadgets/headphones/" + req.params.id);
     } else {
@@ -723,7 +663,7 @@ app.delete("/gadgets/headphones/:id", checkAuthentication, function (req, res) {
 
 //main render page
 app.get("/gadgets/earphones", function (req, res) {
-  Earphones.find({}, function (err, allEarphones) {
+  Gadget.find({ ItemType: "earphone" }, function (err, allEarphones) {
     if (err) {
       console.log(err);
     } else {
@@ -734,7 +674,7 @@ app.get("/gadgets/earphones", function (req, res) {
 
 //post request
 app.post("/gadgets/earphones", checkAuthentication, function (req, res) {
-  Earphones.create(req.body.ear, function (err, addEarphone) {
+  Gadget.create(req.body.ear, function (err, addEarphone) {
     if (err) {
       console.log(err);
     } else {
@@ -752,7 +692,7 @@ app.get("/gadgets/earphones/new", checkAuthentication, function (req, res) {
 
 //redirecting to a specific mobile page
 app.get("/gadgets/earphones/:id", function (req, res) {
-  Earphones.findById(req.params.id, function (err, foundEarphone) {
+  Gadget.findById(req.params.id, function (err, foundEarphone) {
     if (err) {
       console.log(err);
     } else {
@@ -765,7 +705,7 @@ app.get(
   "/gadgets/earphones/:id/edit",
   checkAuthentication,
   function (req, res) {
-    Earphones.findById(req.params.id, function (err, foundEar) {
+    Gadget.findById(req.params.id, function (err, foundEar) {
       if (err) {
         res.redirect("/gadgets/earphones");
       } else {
@@ -777,7 +717,7 @@ app.get(
 
 //update the earphone
 app.put("/gadgets/earphones/:id", checkAuthentication, function (req, res) {
-  Earphones.findByIdAndUpdate(
+  Gadget.findByIdAndUpdate(
     req.params.id,
     req.body.ear,
     function (err, udEarphone) {
@@ -793,7 +733,7 @@ app.put("/gadgets/earphones/:id", checkAuthentication, function (req, res) {
 //deleting earphone
 
 app.delete("/gadgets/earphones/:id", checkAuthentication, function (req, res) {
-  Earphones.findByIdAndRemove(req.params.id, function (err) {
+  Gadget.findByIdAndRemove(req.params.id, function (err) {
     if (err) {
       res.redirect("/gadgets/earphones/" + req.params.id);
     } else {

@@ -1,6 +1,6 @@
 $(window).scroll(function () {
-  $("nav").toggleClass("scrolled", $(this).scrollTop() > 100);
-  $("nav").toggleClass("navbar-dark", $(this).scrollTop() > 100);
+  $(".nav1").toggleClass("scrolled", $(this).scrollTop() > 40);
+  $(".nav1").toggleClass("nav2", $(this).scrollTop() > 40);
 });
 function openNav() {
   document.getElementById("mySidebar").style.width = "100%";

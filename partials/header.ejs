@@ -14,7 +14,7 @@
       integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
       crossorigin="anonymous"
     ></script>
-    <link rel="stylesheet" href="/navbar.css" />
+    
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
@@ -23,65 +23,83 @@
       src="https://kit.fontawesome.com/2dee66e886.js"
       crossorigin="anonymous"
     ></script>
-    <script src="/navbar.js"></script>
+    <link rel="stylesheet" href="/navbar.css" />
+
     <script src="/searchBox.js"></script>
   </head>
+  <!-- styling buttons  -->
 
-  <!-- Adding a navBar -->
-
-  <nav class="nav1">
-    <div class="nav-item-start">
-      <a class="logo" href="/index">TTS</a>
-      <a href="/home">Home</a>
-    </div>
-    <div class="nav-item-end">
-      <div>ashldsaldjaljsldj</div>
-      <div>dsfasdfdasfdas</div>
-    </div>
-  </nav>
-  <a class="navbar-brand" href="/index">TTS</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div
-        class="collapse navbar-collapse"
-        style="font-size: large"
-        id="navbarSupportedContent"
-      >
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/home">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/about">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/contact1">Contact</a>
-          </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <% if(!currentUser){%>
-          <a class="rounded-lg btn-sm btn-pink" href="/admin/login">
+ 
+  <body>
+     <!-- Adding a navBar -->
+  <nav class="nav1"><div id="logo">
+    <a class="logo" href="/index">TTS</a></div>
+    <div class="hide">
+      <div class="item1">
+        <a class="nav-subItem" href="/home"><i class="fas fa-home"></i>Home</a>
+      </div>
+      <div class="item2">
+        <a class="nav-subItem" href="/about"
+          ><i class="fas fa-info-circle"></i>About</a
+        >
+      </div>
+      <div class="item3">
+        <a class="nav-subItem" href="/contact1"
+          ><i class="far fa-question-circle"></i>Contact</a
+        >
+      </div>
+      <form class="loginSignup itemEnd1 my-2 my-lg-0">
+        <% if(!currentUser){%>
+        <div class="itemEnd3">
+          <a class="btn-black" href="/admin/login">
             Login<i class="fas fa-user-plus"></i>
           </a>
-          <% } else {%>
-            <a class="rounded-lg btn-sm btn-pink" href="#">
-            
-              <%=currentUser.username%>
-              <i class="fas fa-user"></i></i>
-          <a class="rounded-lg btn-sm btn-pink" href="/logout">
+        </div>
+        <% } else {%>
+        <div class="itemEnd2">
+          <a class="btn-black" href="#">
+            <%=currentUser.username%>
+            <i class="fas fa-user"></i
+          ></a>
+        </div>
+        <div class="itemEnd3">
+          <a class="btn-black" href="/logout">
             Logout<i class="fas fa-user-times"></i>
           </a>
-          <%}%>
-        </form>
-      </div>
+        </div>
+        <%}%>
+      </form>
+    </div>
+    <div id="mySidebar" class="sidebar">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+      <a class="btn-pink" href="/home"><i class="fas fa-home"></i>Home</a>
+      <a class="btn-pink" href="/about"
+        ><i class="fas fa-info-circle"></i>About</a
+      >
+      <a class="btn-pink" href="/contact1"
+        ><i class="far fa-question-circle"></i>Contact</a
+      >
+      <% if(!currentUser){%>
 
+      <a class="btn-pink" href="/admin/login">
+        Login<i class="fas fa-user-plus"></i>
+      </a>
+
+      <% } else {%>
+
+      <a class="btn-pink" href="#">
+        <%=currentUser.username%>
+        <i class="fas fa-user"></i
+      ></a>
+
+      <a class="btn-pink" href="/logout">
+        Logout<i class="fas fa-user-times"></i>
+      </a>
+
+      <%}%>
+    </div>
+
+    <div id="main">
+      <button class="openbtn" onclick="openNav()">☰</button>
+    </div>
+  </nav>
