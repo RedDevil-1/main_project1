@@ -1,1 +1,2 @@
-Hello this is Ishan, and i hope my project goes well
+Hello this is just a trial project for database management with mongoose and node js with authentication 
+
